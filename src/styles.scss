@@ -92,3 +92,19 @@ $xs-min-width: 576px;
     top: 0px;
 }
 
+.button-3d-highlight {
+    transition-property: all;
+    transition-duration: 0.3s;
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.3), inset 0px -1px 1px rgba(255, 255, 255, 0.15), 0px 7px 0px #d9912f, 0px 8px 3px rgba(0, 0, 0, 0.3);
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…dpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==);
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e3ad63), color-stop(100%, #dfa351));
+    background: -moz-linear-gradient(top, #e3ad63, #dfa351);
+    background: -webkit-linear-gradient(top, #e3ad63, #dfa351);
+    background: linear-gradient(to bottom, #e3ad63, #dfa351);
+    background-color: #e1a85a;
+    color: #ffffff;
+    border: 1px solid #d9912f;
+    text-shadow: none;
+    position: relative;
+    top: 0px;
+}
