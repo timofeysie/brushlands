@@ -1,0 +1,36 @@
+.navbar {
+
+    .nav-tabs {
+        padding-left: 0;
+
+        li {
+            float: none;
+            display: inline-block;
+            padding-left: 15px;
+            padding-right: 15px
+        }
+    }
+
+    .button-group {
+        position: relative;
+        display: inline-block;
+
+        .button {
+            position: relative;
+            left: 15px;
+            float: left;
+            border-radius: 0;
+
+            &:last-child {
+                border-top-right-radius: 16px;
+                border-bottom-right-radius: 16px;
+            }
+
+            &:first-child {
+                border-top-left-radius: 16px;
+                border-bottom-left-radius: 16px;
+
+            }
+        }
+    }
+}

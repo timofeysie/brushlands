@@ -1,20 +1,117 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="container navbar" *ngIf="auth.isAuthenticated()">
+    <!-- large screen width menu -->
+    <div class="row center-md">
+        <div class="col-xs-hide col-sm-hide col-md-12 col-xs-12">
+            <ul class="nav nav-tabs no-stack">
 
+                <li role="presentation">
+                    <a href="/#!/view1" class="button button-3d button-pill"> Artworks </a>
+                </li>
+
+                <li role="presentation">
+                    <a href="#/locations" class="button button-3d button-pill"> Gallery </a>
+                </li>
+
+                <li role="presentation">
+                    <a href="#/add" class="button button-3d button-pill"> Update </a>
+                </li>
+
+                <li role="presentation">
+                    <a href="#/data" class="button button-3d button-pill"> Collection Data </a>
+                </li>
+
+                <li role="presentation">
+                    <a href="#/inspections" class="button button-3d button-pill"> Inspections </a>
+                </li>
+
+                <li role="presentation">
+                    <a href="#/user-permissions" class="button button-3d button-pill"> User Permissions </a>
+                </li>
+
+                <li role="presentation" ng-if="!isAuthenticated">
+                    <a href="#" ng-click="login()" class="button button-3d button-pill"> Login </a>
+                </li>
+
+                <li role="presentation" ng-if="isAuthenticated">
+                    <a href="#" ng-click="signout()" class="button button-3d button-pill"> Logout </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <!-- medium screen width menu -->
+    <div class="row">
+        <div class="col-xs-hide col-md-hide col-md-12 col-xs-12">
+            <div class="button-group">
+                <a href="#/view1" class="button button-3d button-pill"> Artworks </a>
+
+                <a href="#/locations" class="button button-3d button-pill"> Gallery </a>
+
+                <a href="#/add" class="button button-3d button-pill"> Update </a>
+
+                <a href="#/data" class="button button-3d button-pill"> Collection Data </a>
+
+                <a href="#/inspections" class="button button-3d button-pill"> Inspections </a>
+
+                <a href="#" ng-click="login()" ng-if="!isAuthenticated" class="button button-3d button-pill"> Login </a>
+
+                <a href="#" ng-if="isAuthenticated" ng-click="signout()" class="button button-3d button-pill"> Logout </a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- small screen gooey nav -->
+    <div class="row">
+        <div class="col-sm-hide col-md-hide" id="gooeyNav">
+            <nav>
+                <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" style="content: none"/>
+
+                <label class="menu-open-button" for="menu-open">
+                    <span class="hamburger hamburger-1"></span>
+                    <span class="hamburger hamburger-2"></span>
+                    <span class="hamburger hamburger-3"></span>
+                </label>
+
+                <a href="#" data-ng-click='login()' class="menu-item" ng-if="!isAuthenticated">Login</a>
+
+                <a href="#" data-ng-click='signout()' class="menu-item" ng-if="isAuthenticated">Logout</a>
+
+                <a href="#/data" class="menu-item">Data</a>
+
+                <a href="#/add" class="menu-item">Update</a>
+
+                <a href="#/inspections" class="menu-item">Inspect</a>
+
+                <a href="#/locations" class="menu-item">Gallery</a>
+
+                <a href="#/view1" class="menu-item">Artwork</a>
+            </nav>
+
+            <!-- filters -->
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <defs>
+                    <filter id="shadowed-goo">
+                        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"/>
+                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"/>
+                        <feGaussianBlur in="goo" stdDeviation="3" result="shadow"/>
+                        <feColorMatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow"/>
+                        <feOffset in="shadow" dx="1" dy="1" result="shadow"/>
+                        <feBlend in2="shadow" in="goo" result="goo"/>
+                        <feBlend in2="goo" in="SourceGraphic" result="mix"/>
+                    </filter>
+                    <filter id="goo">
+                        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"/>
+                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 10 -7" result="goo"/>
+                        <feBlend in2="goo" in="SourceGraphic" result="mix"/>
+                    </filter>
+                </defs>
+            </svg>
+            <!-- end gooey menu -->
+
+        </div>
+    </div>
+</div>
+
+<router-outlet></router-outlet>

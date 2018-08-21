@@ -1,0 +1,65 @@
+<div class="row center-xs center-sm center-md login-page ">
+    <div class="col-xs-12 col-sm-8 col-md-6">
+        <img src="assets/images/ryans-tree-logo.svg" id="ryans-tree-logo"/>
+        <h3>The Rockend Art Collection</h3>
+        <div *ngIf="!auth.isAuthenticated()">
+            <p>You must be logged in to use this site</p>
+            <a (click)="login()" id="login-btn" class="button button-3d-caution button-pill">Sign In</a>
+        </div>
+        <div *ngIf="auth.isAuthenticated()">
+            <a (click)="logout()" id="logout-btn" class="button button-3d-action button-pill">Sign Out</a>
+            <div class="userInfo"
+                 *ngIf="auth.getProfile()">
+                <div class="item item-button-right">
+				<span>
+					<i class="button button-3d button-pill">
+						Logged in as
+					</i>
+					<i class="button button-3d-primary button-pill">
+						{{auth.getProfile().nickname}}</i>
+				</span>
+                </div>
+                <div class="item item-button-right">
+				<span>
+					<i class="button button-3d button-pill">
+						Created at
+					</i>
+					<i class="button button-3d-primary button-pill">
+						{{auth.getProfile().updated_at}}
+					</i>
+				</span>
+                </div>
+                <div class="item item-button-right">
+				<span>
+					<i class="button button-3d button-pill">
+						Email
+					</i>
+					<i class="button button-3d-primary button-pill">
+						{{auth.getProfile().name}}
+					</i>
+				</span>
+                </div>
+                <div class="item item-button-right">
+				<span>
+					<i class="button button-3d button-pill">
+						Email verified
+					</i>
+					<i class="button button-3d-primary button-pill">
+						{{auth.getProfile().email_verified}}
+					</i>
+				</span>
+                </div>
+                <div class="item item-button-right">
+				<span>
+					<i class="button button-3d button-pill">
+						Auth
+					</i>
+					<i class="button button-3d-primary button-pill">
+						{{auth.getProfile().connection}}
+					</i>
+				</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -27,9 +27,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/flexboxgrid/dist/flexboxgrid.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/auth0-js/build/auth0.min.js"
+            ]
           },
           "configurations": {
             "production": {

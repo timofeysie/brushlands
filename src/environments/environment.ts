@@ -3,7 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+    production: false,
+
+    auth0: {
+        domain: 'hakea.auth0.com',
+        clientId: 'quqf2wa3U0Y6wD5xVzGIrPtM4aWLTp2C',
+        callbackURL: 'http://localhost:4200/login'
+    }
 };
 
 /*

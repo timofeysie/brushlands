@@ -1,1 +1,94 @@
 /* You can add global styles to this file, and also import other style files */
+$md-min-width: 992px;
+$sm-max-width: 991px;
+$sm-min-width: 768px;
+$xs-max-width: 767px;
+$xs-min-width: 576px;
+.col-md-hide {
+    @media screen and(min-width: $md-min-width) {
+        display: none;
+    }
+}
+
+.col-sm-hide {
+    @media screen and(min-width: $sm-min-width) and(max-width: $sm-max-width) {
+        display: none;
+    }
+}
+
+.col-xs-hide {
+    @media screen and(max-width: $xs-max-width) {
+        display: none;
+    }
+}
+
+.button {
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #d4d4d4;
+    height: 32px;
+    line-height: 32px;
+    padding: 0px 25px;
+    font-weight: 300;
+    font-size: 14px;
+    font-family: "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", "Lucida Grande", sans-serif;
+    color: #666;
+    text-shadow: 0 1px 1px white;
+    margin: 0;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.button-pill {
+    border-radius: 16px;
+}
+
+.button-3d {
+    transition-property: all;
+    transition-duration: 0.3s;
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.3), inset 0px -1px 1px rgba(255, 255, 255, 0.15), 0px 7px 0px #bbbbbb, 0px 8px 3px rgba(0, 0, 0, 0.2);
+    background: #EEE linear-gradient(to bottom, #f3f3f3, #e9e9e9);
+    color: #666;
+    border: 1px solid #e1e1e1;
+    text-shadow: none;
+    position: relative;
+    top: 0px;
+}
+
+.button-3d-primary {
+    transition-property: all;
+    transition-duration: 0.3s;
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.3), inset 0px -1px 1px rgba(255, 255, 255, 0.15), 0px 7px 0px #4cc6e6, 0px 8px 3px rgba(0, 0, 0, 0.3);
+    background: #79d4ec linear-gradient(to bottom, #82d7ed, #70d1eb);
+    color: #ffffff;
+    border: 1px solid #4cc6e6;
+    text-shadow: none;
+    position: relative;
+    top: 0px;
+}
+
+.button-3d-caution {
+    transition-property: all;
+    transition-duration: 0.3s;
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.3), inset 0px -1px 1px rgba(255, 255, 255, 0.15), 0px 7px 0px #cb503d, 0px 8px 3px rgba(0, 0, 0, 0.3);
+    background: #d67465 linear-gradient(to bottom, #d87b6d, #d46d5d);
+    color: #ffffff;
+    border: 1px solid #cb503d;
+    text-shadow: none;
+    position: relative;
+    top: 0px;
+}
+
+.button-3d-action {
+    transition-property: all;
+    transition-duration: 0.3s;
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.3), inset 0px -1px 1px rgba(255, 255, 255, 0.15), 0px 7px 0px #809c3e, 0px 8px 3px rgba(0, 0, 0, 0.3);
+    background: #9bbb52 linear-gradient(to bottom, #9fbe59, #97b84b);
+    color: #ffffff;
+    border: 1px solid #809c3e;
+    text-shadow: none;
+    position: relative;
+    top: 0px;
+}
+
