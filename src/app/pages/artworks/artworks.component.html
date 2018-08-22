@@ -8,9 +8,13 @@
         <div class="">
             <div *ngFor="let artwork of artworks">
                 <div class="row center-xs" id="{{artwork.assetRefNo}}">
-                    <a routerLink="artwork/{{artwork.assetRefNo}}" class="col-xs-hide button button-3d button-pill">{{artwork.assetRefNo}}</a>
-                    <a routerLink="artwork/{{artwork.assetRefNo}}" class="button button-3d-action button-pill">{{artwork.title}}</a>
-                    <a routerLink="artist/{{artwork.artist}}" class="button button-3d-highlight button-pill">{{artwork.artist}}</a>
+
+                    <a routerLink="/artwork/{{artwork.assetRefNo}}" class="col-xs-hide button button-3d button-pill">{{artwork.assetRefNo}}</a>
+
+                    <a routerLink="/artwork/{{artwork.assetRefNo}}" class="button button-3d-action button-pill">{{artwork.title}}</a>
+
+                    <a routerLink="/artist/{{artwork.artist}}" class="button button-3d-highlight button-pill">{{artwork.artist}}</a>
+
                     <button type="button" *ngIf="artwork.inspected"
                             class="button button-3d-primary button-pill">Inspected
                     </button>

@@ -1,0 +1,69 @@
+.artwork {
+    .artworkContainer {
+        border: 0.5px solid #d0d0d0;
+        border-radius: 7px;
+        padding: 50px;
+        background-color: #f0f0f0;
+        opacity: 0.9;
+        margin-top: 20px;
+
+        .lightbox {
+            cursor: pointer;
+
+            img {
+                border: 3px solid white;
+                box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+                max-height: 300px;
+                min-height: 100px;
+            }
+        }
+
+        .form-control {
+            margin-bottom: 18px;
+        }
+
+        .artwork-nav-buttons-sm {
+            margin-top: 15px;
+
+            a {
+                &:first-child {
+                    margin-right: 8px;
+                }
+            }
+        }
+    }
+    .next-prev-artwork-button {
+        top: 48%;
+        height: 36px;
+        font-size: 12px;
+        border-radius: 24px;
+        padding: 5px 25px;
+    }
+}
+
+.lightbox-target {
+    opacity: 1;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+    position: fixed;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity .5s ease-in-out;
+    overflow: hidden;
+
+    img {
+        max-height: 100%;
+        max-width: 100%;
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 3px solid white;
+        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+        box-sizing: border-box;
+        transition: .5s ease-in-out;
+    }
+}
