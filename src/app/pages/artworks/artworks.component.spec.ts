@@ -1,14 +1,14 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ArtworkComponent} from './artwork.component';
+import {ArtworksComponent} from './artworks.component';
 import {ApiService} from '../../services/api/api.service';
 import {Artwork} from '../../models/artwork';
 import {of} from 'rxjs';
 import {RouterTestingModule} from '@angular/router/testing';
 
-describe('ArtworkComponent', () => {
-    let component: ArtworkComponent;
-    let fixture: ComponentFixture<ArtworkComponent>;
+describe('ArtworksComponent', () => {
+    let component: ArtworksComponent;
+    let fixture: ComponentFixture<ArtworksComponent>;
     let apiServiceSpy: jasmine.SpyObj<ApiService>;
 
     beforeEach(() => {
@@ -18,10 +18,10 @@ describe('ArtworkComponent', () => {
         TestBed.configureTestingModule({
             imports: [RouterTestingModule],
             providers: [{provide: ApiService, useValue: apiServiceSpy}],
-            declarations: [ArtworkComponent],
+            declarations: [ArtworksComponent],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(ArtworkComponent);
+        fixture = TestBed.createComponent(ArtworksComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
@@ -39,11 +39,11 @@ describe('ArtworkComponent', () => {
         fixture.detectChanges();
 
         const host: HTMLElement = fixture.nativeElement;
-        expect(host.textContent).toContain('title', 'show artwork title');
-        expect(host.textContent).toContain('artist', 'show artwork artist');
+        expect(host.textContent).toContain('title', 'show artworks title');
+        expect(host.textContent).toContain('artist', 'show artworks artist');
     });
 
-    it('should show update button if no artwork', () => {
+    it('should show update button if no artworks', () => {
         component.artworks = [];
         component.error = 'add some artworks';
         fixture.detectChanges();

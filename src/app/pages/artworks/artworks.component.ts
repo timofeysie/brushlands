@@ -4,10 +4,10 @@ import {ApiService} from '../../services/api/api.service';
 
 @Component({
     selector: 'app-artwork',
-    templateUrl: './artwork.component.html',
-    styleUrls: ['./artwork.component.scss'],
+    templateUrl: './artworks.component.html',
+    styleUrls: ['./artworks.component.scss'],
 })
-export class ArtworkComponent implements OnInit {
+export class ArtworksComponent implements OnInit {
 
     loading: boolean;
     artworks: Artwork[];
@@ -22,7 +22,7 @@ export class ArtworkComponent implements OnInit {
     private getArtworks() {
         this.apiService.artworks().subscribe((response) => {
             if (response.length === 0) {
-                this.error = 'Please upload artwork data.';
+                this.error = 'Please upload artworks data.';
             }
             this.artworks = response;
             this.loading = false;

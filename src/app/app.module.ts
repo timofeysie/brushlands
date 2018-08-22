@@ -4,14 +4,14 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './pages/login/login.component';
 import {AppRoutingModule} from './app-routing.module';
-import { ArtworkComponent } from './pages/artwork/artwork.component';
+import { ArtworksComponent } from './pages/artworks/artworks.component';
 import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
-        ArtworkComponent
+        ArtworksComponent
     ],
     imports: [
         BrowserModule,
