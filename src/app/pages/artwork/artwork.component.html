@@ -4,9 +4,9 @@
 
         <div class="alert alert-warning" *ngIf="error">{{error}}</div>
         <a routerLink="/add" *ngIf="error" class="button button-3d button-pill"> Update </a>
-<div>
-        <img *ngIf="loading" src="assets/images/spinner.gif" style="background:none">
-</div>
+        <div>
+            <img *ngIf="loading" src="assets/images/spinner.gif" style="background:none">
+        </div>
 
         <div class="">
             <div *ngFor="let artwork of artworks">

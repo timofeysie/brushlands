@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Artwork} from '../../models/artwork';
+import {ApiService} from '../../services/api/api.service';
 
 @Component({
     selector: 'app-artwork',
     templateUrl: './artwork.component.html',
-    styleUrls: ['./artwork.component.scss']
+    styleUrls: ['./artwork.component.scss'],
 })
 export class ArtworkComponent implements OnInit {
 
@@ -12,11 +13,20 @@ export class ArtworkComponent implements OnInit {
     artworks: Artwork[];
     error: string;
 
-    constructor() {
+    constructor(public apiService: ApiService) {
+        this.error = null;
         this.loading = true;
-        this.error = 'this is the error';
-        this.artworks = [new Artwork(1, 'artwork 01', 'artist 01')
-            , new Artwork(2, 'artwork 02', 'artist 02')];
+        this.getArtworks();
+    }
+
+    private getArtworks() {
+        this.apiService.artworks().subscribe((response) => {
+            if (response.length === 0) {
+                this.error = 'Please upload artwork data.';
+            }
+            this.artworks = response;
+            this.loading = false;
+        });
     }
 
     ngOnInit() {

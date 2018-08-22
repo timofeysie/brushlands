@@ -8,7 +8,7 @@ export class Artwork {
         this.assetRefNo = assetRefno;
         this.title = title;
         this.artist = artist;
-        this.inspected = true;
+        this.inspected = false;
     }
 
 };

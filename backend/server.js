@@ -1,6 +1,14 @@
 const express = require('express');
 const mongoDb = require('mongodb').MongoClient;
+const cors = require('cors');
+
 const app = express();
+
+let corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 
 app.listen(3000, () => {
     console.log('server started');
