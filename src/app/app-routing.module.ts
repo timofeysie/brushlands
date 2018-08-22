@@ -4,10 +4,12 @@ import {LoginComponent} from './pages/login/login.component';
 import {RouterModule} from '@angular/router';
 import {ArtworksComponent} from './pages/artworks/artworks.component';
 import {AuthGuard} from './guards/auth/auth.guard';
+import {ArtworkComponent} from './pages/artwork/artwork.component';
 
 const routes = [
   {path: 'login', component: LoginComponent},
   {path: 'artworks', component: ArtworksComponent, canActivate: [AuthGuard]},
+  {path: 'artwork/:refNo', component: ArtworkComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule(
