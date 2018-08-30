@@ -9,7 +9,9 @@ export const environment = {
         domain: 'hakea.auth0.com',
         clientId: 'quqf2wa3U0Y6wD5xVzGIrPtM4aWLTp2C',
         callbackURL: 'http://localhost:4200/login'
-    }
+    },
+
+    apiUrl: 'http://localhost:3000/api/'
 };
 
 /*
