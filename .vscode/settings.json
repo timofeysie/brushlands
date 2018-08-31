@@ -1,0 +1,12 @@
+{
+    "typescript.check.tscVersion": false,
+    "typescript.check.workspaceVersion": false,
+    "files.exclude": {
+        "**/*.js": false
+    },
+    "workbench.colorTheme": "Visual Studio Dark",
+    "cSpell.userWords": [
+        "Injectable"
+    ],
+    "git.ignoreLegacyWarning": true
+}
