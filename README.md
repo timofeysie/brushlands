@@ -2,14 +2,14 @@
 
 An art collection app.
 
-1. [Running locally](#Running locally)
-2. [Former Readme Intro](#Former Readme Intro)
-2. [Development server](#Development server)
-2. [Code scaffolding](#Code scaffolding)
+1. [Running locally](#Running-locally)
+2. [Former Readme Intro](#Former-Readme-Intro)
+2. [Development server](#Development-server)
+2. [Code scaffolding](#Code-scaffolding)
 2. [Build](#Build)
-2. [Running unit tests](#Running unit tests)
-2. [Running end-to-end tests](#Running end-to-end tests)
-2. [Further help](#Further help)
+2. [Running unit tests](#Running-unit-tests)
+2. [Running end-to-end tests](#Running-end-to-end-tests)
+2. [Further help](#Further-help)
 
 
 #
