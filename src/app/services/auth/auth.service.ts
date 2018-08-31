@@ -19,21 +19,18 @@ export class AuthService {
         autoclose: true,
         oidcConformant: true,
     };
-
     lock = new Auth0Lock(
         environment.auth0.clientId,
         environment.auth0.domain,
         this.auth0Options
     );
-
     helper = new JwtHelperService();
-
+    
     constructor() {
         this.lock.on('authenticated', (authResult: any) => {
             localStorage.setItem('token', authResult.idToken);
             localStorage.setItem('profile', JSON.stringify(authResult.idTokenPayload));
         });
-
         this.lock.on('authorization_error', error => {
             console.log('something went wrong', error);
         });

@@ -1,5 +1,4 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {ArtworksComponent} from './artworks.component';
 import {ApiService} from '../../services/api/api.service';
 import {Artwork} from '../../models/artwork';
@@ -20,7 +19,6 @@ describe('ArtworksComponent', () => {
             providers: [{provide: ApiService, useValue: apiServiceSpy}],
             declarations: [ArtworksComponent],
         }).compileComponents();
-
         fixture = TestBed.createComponent(ArtworksComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -37,7 +35,6 @@ describe('ArtworksComponent', () => {
 
     it('should show loaded artworks', () => {
         fixture.detectChanges();
-
         const host: HTMLElement = fixture.nativeElement;
         expect(host.textContent).toContain('title', 'show artworks title');
         expect(host.textContent).toContain('artist', 'show artworks artist');

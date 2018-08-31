@@ -22,45 +22,32 @@ Start the server in backend/server.js using NodeJS:
 node backend/server.js
 ```
 
-After this, you can =[s
-]
+The server will then be listening on port 3000.  After this, you can serve the app by running:
+```
+npm start
+```
 
-Using npm start, which then runs gn serve, this error shows up in the Chrome browser console:
+If this error shows up in the Chrome browser console:
 ```
 (unknown) Uncaught DOMException: Blocked a frame with origin "https://hakea.auth0.com" from accessing a cross-origin frame.
     at <anonymous>:1:16
 ```
 
-This is using the Allow-Control-Allow-Origin plugin for Chrome.  In Firefox, there is no error, but just a blank screen.
+The route for '/' is not yet defined.  Go to ```http://localhost:4200/login``` to get started.
 
-Is this the same thing as mentioned in [this post](    
-https://community.auth0.com/t/cross-origin-x-frame-options-to-sameorigin/10620/2)?
-It suggests updating the web server to not include that header for that specific URL.
+You can use the Allow-Control-Allow-Origin plugin for Chrome to get around these issues locally.
 
-Using the old index.js server app I get the following:
+When offline, running the tests will cause two errors so far:
 ```
-$ node index.js
-internal/modules/cjs/loader.js:550
-    throw err;
-    ^
-Error: Cannot find module 'officegen'
-    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:548:15)
-    ...
-    at Function.Module._load (internal/modules/cjs/loader.js:498:3)
+AppComponent should definitely create the app
+Failed: Error: An error occurred when fetching client data for Lock: https://cdn.auth0.com/client/quqf2wa3U0Y6wD5xVzGIrPtM4aWLTp2C.js?t1535676930356 could not be loaded.
+Error: Error: An error occurred when fetching client data for Lock: https://cdn.auth0.com/client/quqf2wa3U0Y6wD5xVzGIrPtM4aWLTp2C.js?t1535676930356 could not be loaded.
 ```
 
-Using the new backend/server.js file:
+And:
 ```
-$ node server.js
-server started
-(node:25881) DeprecationWarning: current URL string parser is deprecated, and will be removed in a future version. To use the new parser, pass option { useNewUrlParser: true } to MongoClient.connect.
-{ MongoNetworkError: failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]
-    at Pool.<anonymous> (/Users/tim/repos/brushlands/node_modules/mongodb-core/lib/topologies/server.js:564:11)
-    ...
-    at process._tickCallback (internal/process/next_tick.js:178:19)
-  name: 'MongoNetworkError',
-  errorLabels: [ 'TransientTransactionError' ],
-  [Symbol(mongoErrorContextSymbol)]: {} }
+ArtworksComponent should show update button if no artworks
+[object ErrorEvent] thrown
 ```
 
 
