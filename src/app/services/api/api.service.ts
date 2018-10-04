@@ -4,25 +4,23 @@ import {Artwork} from '../../models/artwork';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Artist} from '../../models/artist';
-import { environment } from '../../../environments/environment';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApiService {
-
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) {}
 
     private getApiUrl(url: string) {
         return environment.backendUrl + url;
     }
 
     public artworks(): Observable<Artwork[]> {
-        return this.http.get(this.getApiUrl('artworks'))
-            .pipe(map((response: any) => {
-                return response.map((item) => {
-                    let artwork = new Artwork(item.assetRefNo, item.title, item.artist);
+        return this.http.get(this.getApiUrl('artworks')).pipe(
+            map((response: any) => {
+                return response.map(item => {
+                    const artwork = new Artwork(item.assetRefNo, item.title, item.artist);
                     artwork.inspected = item.inspected;
                     artwork.amountPaid = item.amountPaid;
                     artwork.imageFileName = item.imageFileName;
@@ -36,13 +34,14 @@ export class ApiService {
                     artwork.thumbnail = item.thumbnail;
                     return artwork;
                 });
-            }));
+            })
+        );
     }
 
     public artwork(id: any): Observable<Artwork> {
-        return this.http.get(this.getApiUrl('artwork/' + id))
-            .pipe(map((response: any) => {
-                let artwork = new Artwork(response.assetRefNo, response.title, response.artist);
+        return this.http.get(this.getApiUrl('artwork/' + id)).pipe(
+            map((response: any) => {
+                const artwork = new Artwork(response.assetRefNo, response.title, response.artist);
                 artwork.inspected = response.inspected;
                 artwork.amountPaid = response.amountPaid;
                 artwork.imageFileName = response.imageFileName;
@@ -55,18 +54,18 @@ export class ApiService {
                 artwork.text = response.text;
                 artwork.thumbnail = response.thumbnail;
                 return artwork;
-            }));
+            })
+        );
     }
 
     public getImage(id): Observable<string> {
-        return this.http.get(this.getApiUrl('image/' + id))
-            .pipe(map((response: any) => response.imageFile));
+        return this.http.get(this.getApiUrl('image/' + id)).pipe(map((response: any) => response.imageFile));
     }
 
     public getArtist(name): Observable<Artist> {
-        return this.http.get(this.getApiUrl('artist/' + name))
-            .pipe(map((response: any) => {
-                let artist = new Artist(response.name);
+        return this.http.get(this.getApiUrl('artist/' + name)).pipe(
+            map((response: any) => {
+                const artist = new Artist(response.name);
                 artist.skinName = response.skinName;
                 artist.language = response.language;
                 artist.region = response.region;
@@ -77,23 +76,34 @@ export class ApiService {
                 artist.bio.AASDLink = response.bio ? response.bio.AASDLink : null;
                 artist.bio.WikiLink = response.bio ? response.bio.WikiLink : null;
                 return artist;
-            }));
+            })
+        );
     }
 
     public saveArtist(artist: Artist): Observable<boolean> {
-        return this.http.post<boolean>(this.getApiUrl('artist/' + artist.name), artist)
-            .pipe(map((response: any) => {
+        return this.http.post<boolean>(this.getApiUrl('artist/' + artist.name), artist).pipe(
+            map((response: any) => {
                 if (response.n == 0) {
                     return false;
                 }
                 return true;
-            }));
+            })
+        );
+    }
+
+    public getPermission(): Observable<any[]> {
+        return this.http.get(this.getApiUrl('permissions/all')).pipe(
+            map((response: any) => {
+                return response;
+            })
+        );
     }
 
     public isAuthorized(array: any): Observable<any> {
-        return this.http.post<any>(this.getApiUrl('is-authorized'), array)
-            .pipe(map((response: any) => {
+        return this.http.post<any>(this.getApiUrl('is-authorized'), array).pipe(
+            map((response: any) => {
                 return response;
-            }));
+            })
+        );
     }
 }
