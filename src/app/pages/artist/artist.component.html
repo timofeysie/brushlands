@@ -1,0 +1,128 @@
+<div class="flex-container" *ngIf="artist">
+    <div class="center-xs artwork-list">
+        <div class="alert alert-warning" *ngIf="error">{{error}}</div>
+        <a routerLink="/add" *ngIf="error" class="button button-3d button-pill"> Update </a>
+        <div>
+            <img *ngIf="loading" src="assets/images/spinner.gif" style="background:none">
+        </div>
+
+        <div id="text" *ngIf="!loading">
+            <div class="row artist">
+                <div class="artworkContainer">
+                    <table class="artists-info-table">
+                        <tr>
+                            <td>Name</td>
+                            <td>
+                                <p class="bio">
+                                    <span>{{artist.name}}</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr *ngIf="artist.DOB">
+                            <td>DOB</td>
+                            <td>
+                                <p class="bio">
+                                    <span>{{artist.DOB}}</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr *ngIf="artist.skinName">
+                            <td>Skin Name</td>
+                            <td>
+                                <p class="bio">
+                                    <span>{{artist.skinName}}</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr *ngIf="artist.language">
+                            <td>Language</td>
+                            <td>
+                                <p class="bio">
+                                    <span>{{artist.language}}</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr *ngIf="artist.region">
+                            <td>Region</td>
+                            <td>   
+                                <p class="bio">
+                                    <span>{{artist.region}}</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr *ngIf="artist.dreaming">
+                            <td>Dreaming</td>
+                            <td>
+                                <p class="bio">
+                                    <span>{{artist.dreaming}}</span>
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="editMode|| artist.bio.title">
+                            <td>Bio Title</td>
+                            <td>
+                                <p class="bio">
+                                    <span *ngIf="!editMode">{{artist.bio.title}}</span>
+                                    <input *ngIf="editMode" type="text" [(ngModel)]="editModel.bio.title"/>
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="editMode || artist.bio.body">
+                            <td>Bio Body</td>
+                            <td>
+                                <p class="bio">
+                                    <span *ngIf="!editMode">{{artist.bio.body}}</span>
+                                    <textarea *ngIf="editMode" [(ngModel)]="editModel.bio.body">{{editModel.bio.body}}</textarea>
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>AASD Link</td>
+                            <td>
+                                <div *ngIf="!editMode">
+                                    <p class="bio">
+                                        <a *ngIf="isAASDLinkFound && !AASDLinkLoader" [href]="AASDLink" target="_blank">{{AASDLink}}</a>
+                                    </p>
+                                    <div *ngIf="AASDLinkLoader" class="dot-loader"></div>
+                                    <span *ngIf="!isAASDLinkFound && !AASDLinkLoader">AASD does not have an article with this exact name.</span>
+                                </div>
+                                <p class="bio">
+                                    <input *ngIf="editMode" type="text" [(ngModel)]="editModel.bio.AASDLink"/>
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Wiki Link</td>
+                            <td>
+                                <div *ngIf="!editMode">
+                                    <p class="bio">
+                                        <a *ngIf="isWikiLinkFound && !wikiLinkLoader" [href]="wikiLink" target="_blank">{{wikiLink}}</a>
+                                    </p>
+                                    <div *ngIf="wikiLinkLoader" class="dot-loader"></div>
+                                    <span *ngIf="!isWikiLinkFound && !wikiLinkLoader">Wikipedia does not have an article with this exact name</span>
+                                </div>
+                                <p class="bio">
+                                    <input *ngIf="editMode" type="text" [(ngModel)]="editModel.bio.WikiLink"/>
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2" id="action-bar">
+                                <a [routerLink]="['/locations', artist.name]" class="button button-3d-highlight button-pill "> View Artist's Works</a>
+                                <button type="button" *ngIf="!editMode" (click)="editMode=true" (click)="msg=''" class="button button-3d-highlight button-pill"> Click to edit</button>
+                                <button type="button" *ngIf="editMode" (click)="saveArtist(editModel)" class="button button-3d-highlight button-pill"> Save</button>
+                                <button type="button" *ngIf="editMode" (click)="editMode=false" class="button button-3d-highlight button-pill"> Cancel</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <p class="msg" *ngIf="msg">{{msg}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

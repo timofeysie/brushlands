@@ -1,0 +1,59 @@
+.artist {
+    .artists-info-table {
+        td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            &#action-bar {
+                .button {
+                    margin-left: 8px;
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                }
+            }
+            .bio{
+                text-indent:50px;
+                margin: 0;
+            }
+            .bio::first-letter {
+                font-size: 200%;
+                color: #e1a85a;
+            }
+        }
+    }
+    .msg{
+        opacity: 0.5;
+        text-align: center;
+    }
+}
+
+
+/* line 84, ../../scss/styles.scss */
+.artworkContainer {
+    display: table;
+    position: relative;
+    border: 0.5px solid #d0d0d0;
+    border-radius: 7px;
+    padding: 20px 50px 50px 50px;
+    background-color: #f0f0f0;
+    opacity: 0.9;
+    top: 30px;
+    text-align: center;
+    min-height: 200px;
+    margin: 0 auto  ;
+}
+
+
+
+.artists-info-table
+{
+    margin-left:auto; 
+    margin-right:auto;
+    text-align: left;
+}
+
+.artists-info-table #action-bar
+{
+    padding: 10px 0px;
+}

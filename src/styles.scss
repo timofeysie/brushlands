@@ -4,6 +4,12 @@ $sm-max-width: 991px;
 $sm-min-width: 768px;
 $xs-max-width: 767px;
 $xs-min-width: 576px;
+
+body{
+    font-family: "proxima-nova",sans-serif;
+    font-weight: 100;
+}
+
 .col-md-hide {
     @media screen and(min-width: $md-min-width) {
         display: none;
@@ -24,6 +30,22 @@ $xs-min-width: 576px;
 
 .text-smaller {
     font-size: smaller;
+}
+
+.page-container {
+    border: 0.5px solid #d0d0d0;
+    border-radius: 7px;
+    padding: 50px;
+    background-color: #f0f0f0;
+    opacity: 0.9;
+    margin-top: 20px;
+}
+
+.dot-loader {
+    background-image: url(/assets/images/dot-loader.gif);
+    height: 25px;
+    width: 100px;
+    background-position: right;
 }
 
 .button {
@@ -111,4 +133,7 @@ $xs-min-width: 576px;
     text-shadow: none;
     position: relative;
     top: 0px;
+}
+a {
+    text-decoration: none;
 }
