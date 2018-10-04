@@ -4,6 +4,7 @@ import {Artwork} from '../../models/artwork';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Artist} from '../../models/artist';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,7 @@ export class ApiService {
     }
 
     private getApiUrl(url: string) {
-        return 'http://localhost:3000/api/' + url;
+        return environment.backendUrl + url;
     }
 
     public artworks(): Observable<Artwork[]> {

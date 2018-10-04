@@ -5,11 +5,13 @@
 export const environment = {
     production: false,
 
+    backendUrl: 'http://localhost:3000/api/',
+
     auth0: {
         domain: 'hakea.auth0.com',
         clientId: 'quqf2wa3U0Y6wD5xVzGIrPtM4aWLTp2C',
-        callbackURL: 'http://localhost:4200/login'
-    }
+        callbackURL: 'http://localhost:4200/login',
+    },
 };
 
 /*
