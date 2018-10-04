@@ -1,3 +1,11 @@
-<p>
-  user-permissions works!
-</p>
+<div class="user-permissions">
+
+    <h4>User Permissions</h4>
+    <form [formGroup]="permissionForm">
+
+        <select>
+            <option *ngFor="let user of users">{{user}}</option>
+        </select>
+
+    </form>
+</div>

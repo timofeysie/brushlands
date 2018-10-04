@@ -138,7 +138,8 @@ app.route('/api/artist/:name').post((req, res) => {
 
 app.route('/api/permissions/all').get((req, res) => {
     mongoDb.connect(
-        'mogodb://localhost:27017',
+        'mongodb://localhost:27017',
+        {useNewUrlParser: true},
         (err, client) => {
             if (err) {
                 res.status(500);
@@ -146,9 +147,9 @@ app.route('/api/permissions/all').get((req, res) => {
             }
 
             let db = client.db(databaseName);
-            let colletion = db.collection(permissionCollection);
+            let collection = db.collection(permissionCollection);
 
-            collection.find().toArray((err, item) => {
+            collection.find().toArray((err, items) => {
                 res.send(items);
                 client.close();
             });
