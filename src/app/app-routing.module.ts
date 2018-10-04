@@ -6,12 +6,15 @@ import {ArtworksComponent} from './pages/artworks/artworks.component';
 import {AuthGuard} from './guards/auth/auth.guard';
 import {ArtworkComponent} from './pages/artwork/artwork.component';
 import {ArtistComponent} from './pages/artist/artist.component';
+import {LocationsComponent} from './pages/locations/locations.component';
 
 const routes = [
     {path: 'login', component: LoginComponent},
     {path: 'artworks', component: ArtworksComponent, canActivate: [AuthGuard]},
     {path: 'artwork/:refNo', component: ArtworkComponent, canActivate: [AuthGuard]},
-    {path: 'artist/:name', component: ArtistComponent, canActivate: [AuthGuard]}
+    {path: 'artist/:name', component: ArtistComponent, canActivate: [AuthGuard]},
+    {path: 'locations', component: LocationsComponent, canActivate: [AuthGuard]},
+    {path: 'locations/:artistName', component: LocationsComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule(

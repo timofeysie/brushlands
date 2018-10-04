@@ -89,4 +89,11 @@ export class ApiService {
                 return true;
             }));
     }
+
+    public isAuthorized(array: any): Observable<any> {
+        return this.http.post<any>(this.getApiUrl('is-authorized'), array)
+            .pipe(map((response: any) => {
+                return response;
+            }));
+    }
 }

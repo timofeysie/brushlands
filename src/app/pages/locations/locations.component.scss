@@ -1,0 +1,244 @@
+$card-radius: 7px;
+$card-radius__img: 5px;
+
+.flex-container {
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    margin-left: 20px;
+    margin-right: 20px;
+
+    /* From intense sierra */
+    #productos{
+
+        .container {
+            background-color: aliceblue;
+            height: 100%;
+            border-radius: $card-radius;
+            text-align: center;
+            height:100%;
+            width: 130px;
+            border:5px;
+            -webkit-box-shadow: 0px 15px 13px 0px rgba(0,0,0,0.35);
+            -moz-box-shadow: 0px 15px 13px 0px rgba(0,0,0,0.35);
+            box-shadow: 0px 15px 13px 0px rgba(0,0,0,0.35);
+        }
+
+        img {
+            border-radius: $card-radius__img;
+            height:100px;
+            width:100px;
+            margin: 15px;
+            border-top: solid black 1px;
+            border-left: solid black 1px;
+        }
+    }
+}
+
+
+.lightbox-target {
+    opacity: 1;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+    position: fixed;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity .5s ease-in-out;
+    overflow: hidden;
+
+    img {
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        max-height: 0%;
+        max-width: 0%;
+        max-height: 100%;
+        max-width: 100%;
+        border: 3px solid white;
+        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+        box-sizing: border-box;
+        -webkit-transition: .5s ease-in-out;
+        -moz-transition: .5s ease-in-out;
+        -o-transition: .5s ease-in-out;
+        transition: .5s ease-in-out;
+    }
+}
+
+.lightbox {
+    cursor: pointer;
+
+    img {
+        border: 3px solid white;
+        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+        max-height: 300px;
+        min-height: 100px;
+    }
+}
+
+/* Styles the thumbnail */
+a.lightbox img {
+    border: 3px solid white;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Styles the close link, adds the slide down transition */
+a.lightbox-close {
+    display: block;
+    width: 50px;
+    height: 50px;
+    box-sizing: border-box;
+    background: white;
+    color: black;
+    text-decoration: none;
+    position: absolute;
+    top: -80px;
+    right: 0;
+    -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    transition: .5s ease-in-out;
+    cursor: pointer
+}
+
+/* Provides part of the "X" to eliminate an image from the close link */
+a.lightbox-close:before {
+    content: "";
+    display: block;
+    height: 30px;
+    width: 1px;
+    background: black;
+    position: absolute;
+    left: 26px;
+    top: 10px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* Provides part of the "X" to eliminate an image from the close link */
+a.lightbox-close:after {
+    content: "";
+    display: block;
+    height: 30px;
+    width: 1px;
+    background: black;
+    position: absolute;
+    left: 26px;
+    top: 10px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+/* Uses the :target pseudo-class to perform the animations upon clicking the .lightbox-target anchor */
+.lightbox-target {
+    opacity: 1;
+    top: 0;
+    bottom: 0;
+
+    a.lightbox-close {
+        top: 0px;
+    }
+}
+
+.filters{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80%;
+    margin:auto;
+
+    input[type=checkbox]{
+        opacity: 1;
+        position: initial;
+        cursor: pointer;
+    }
+    label
+    {
+        cursor: pointer;
+    }
+    .filter-group
+    {
+        padding-bottom: 5px;
+    }
+    .search-term 
+    {
+        height: 32px;
+        padding : 0 10px;
+        margin-bottom: 5px;
+    }
+    .filter-header
+    {
+        padding:0;
+        position: relative;
+        width: 100%
+    }
+    .filter-header h2
+    {
+        margin: 0;
+    }
+    .filter-body
+    {
+        padding-top:10px;
+        background-color: #eee;
+        width:100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid #eee;
+    }
+}
+
+.filter-item{
+    order: 1;
+    flex-grow: 1;
+    margin-bottom: 10px;
+    max-width: 100%;
+}
+.filter-select-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-select-item{
+    order: 1;
+    flex-grow: 1;
+    max-width: 100%;
+
+    .button {
+        max-width: 100%;
+    }
+}
+
+.arrow-down {
+    position: absolute;
+    top: 8px;
+    right: 5px;
+    width: 0;
+    height: 0;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-top: 16px solid #bbbbbb;
+}
+.arrow-up {
+    position: absolute;
+    top: 8px;
+    right: 5px;
+    width: 0;
+    height: 0;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-bottom: 16px solid #bbbbbb;
+}

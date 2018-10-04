@@ -2,6 +2,9 @@ const express = require('express');
 const mongoDb = require('mongodb').MongoClient;
 const cors = require('cors');
 const bodyParser = require("body-parser");
+const fs = require('fs');
+const Busboy = require('busboy');
+const busboy = require('connect-busboy');
 
 const app = express();
 
@@ -110,4 +113,32 @@ app.route('/api/artist/:name').post((req, res) => {
         client.close();
     });
 
+});
+
+app.route('/api/is-authorized/').post((req, res) => {
+
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+    let status = null;
+    var busboy = new Busboy({headers: req.headers});
+    busboy.on('field', function (key, value, keyTruncated, valueTruncated) {
+        var email = JSON.parse(value).email;
+        var task = JSON.parse(value).task;
+
+        var file = fs.readFileSync('.permissions.json').toString();
+        var assignedPermissions = JSON.parse(file).assignedPermissions;
+        var index = assignedPermissions[task].indexOf(email);
+        if (index == -1)
+        {
+            status = 401;
+        } else
+        {
+            status = 200;
+        }
+    });
+    busboy.on('finish', function () {
+        res.send({status});
+    });
+    return req.pipe(busboy);
 });

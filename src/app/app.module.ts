@@ -9,6 +9,7 @@ import {ArtworksComponent} from './pages/artworks/artworks.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ArtworkComponent} from './pages/artwork/artwork.component';
 import {ArtistComponent} from './pages/artist/artist.component';
+import {LocationsComponent} from './pages/locations/locations.component';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import {ArtistComponent} from './pages/artist/artist.component';
         LoginComponent,
         ArtworksComponent,
         ArtworkComponent,
-        ArtistComponent
+        ArtistComponent,
+        LocationsComponent
     ],
     imports: [
         BrowserModule,
