@@ -25,7 +25,7 @@
                 </li>
 
                 <li role="presentation">
-                    <a href="#/user-permissions" class="button button-3d button-pill"> User Permissions </a>
+                    <a [routerLink]="['/', 'user-permissions']" class="button button-3d button-pill"> User Permissions </a>
                 </li>
 
                 <li role="presentation" ng-if="!isAuthenticated">

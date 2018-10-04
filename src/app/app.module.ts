@@ -10,6 +10,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {ArtworkComponent} from './pages/artwork/artwork.component';
 import {ArtistComponent} from './pages/artist/artist.component';
 import {LocationsComponent} from './pages/locations/locations.component';
+import { UserPermissionsComponent } from './pages/user-permissions/user-permissions.component';
 
 @NgModule({
     declarations: [
@@ -18,7 +19,8 @@ import {LocationsComponent} from './pages/locations/locations.component';
         ArtworksComponent,
         ArtworkComponent,
         ArtistComponent,
-        LocationsComponent
+        LocationsComponent,
+        UserPermissionsComponent
     ],
     imports: [
         BrowserModule,
