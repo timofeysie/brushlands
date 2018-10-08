@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
 import {LoginComponent} from './pages/login/login.component';
@@ -9,6 +9,8 @@ import {ArtworksComponent} from './pages/artworks/artworks.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ArtworkComponent} from './pages/artwork/artwork.component';
 import {ArtistComponent} from './pages/artist/artist.component';
+import {LocationsComponent} from './pages/locations/locations.component';
+import { UserPermissionsComponent } from './pages/user-permissions/user-permissions.component';
 
 @NgModule({
     declarations: [
@@ -16,13 +18,16 @@ import {ArtistComponent} from './pages/artist/artist.component';
         LoginComponent,
         ArtworksComponent,
         ArtworkComponent,
-        ArtistComponent
+        ArtistComponent,
+        LocationsComponent,
+        UserPermissionsComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

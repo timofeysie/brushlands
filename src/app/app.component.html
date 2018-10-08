@@ -9,7 +9,7 @@
                 </li>
 
                 <li role="presentation">
-                    <a href="#/locations" class="button button-3d button-pill"> Gallery </a>
+                    <a [routerLink]="['/', 'locations']" class="button button-3d button-pill"> Gallery </a>
                 </li>
 
                 <li role="presentation">
@@ -25,7 +25,7 @@
                 </li>
 
                 <li role="presentation">
-                    <a href="#/user-permissions" class="button button-3d button-pill"> User Permissions </a>
+                    <a [routerLink]="['/', 'user-permissions']" class="button button-3d button-pill"> User Permissions </a>
                 </li>
 
                 <li role="presentation" ng-if="!isAuthenticated">
@@ -46,7 +46,7 @@
             <div class="button-group">
                 <a routerLink="/artworks" class="button button-3d button-pill"> Artworks </a>
 
-                <a href="#/locations" class="button button-3d button-pill"> Gallery </a>
+                <a [routerLink]="['/','locations']" class="button button-3d button-pill"> Gallery </a>
 
                 <a href="#/add" class="button button-3d button-pill"> Update </a>
 
@@ -84,7 +84,7 @@
 
                 <a href="#/inspections" class="menu-item">Inspect</a>
 
-                <a href="#/locations" class="menu-item">Gallery</a>
+                <a [routerLink]="['/', 'locations']" class="menu-item">Gallery</a>
 
                 <a routerLink="/artworks" class="menu-item">Artwork</a>
             </nav>

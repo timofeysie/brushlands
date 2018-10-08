@@ -1,3 +1,5 @@
+@import './assets/scss/partials/_buttons.scss';
+
 /* You can add global styles to this file, and also import other style files */
 $md-min-width: 992px;
 $sm-max-width: 991px;
@@ -7,6 +9,11 @@ $xs-min-width: 576px;
 
 body{
     font-family: "proxima-nova",sans-serif;
+    text-align: center;
+    font-weight: 100;
+}
+
+h1, h2, h3 {
     font-weight: 100;
 }
 

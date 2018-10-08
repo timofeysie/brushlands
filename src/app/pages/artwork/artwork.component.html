@@ -14,7 +14,7 @@
 
             <h5>
                 {{artwork.assetRefNo}} - {{artwork.title}} <span *ngIf="inspectionOn"> <!--TODO : replace with settings service-->
-                        <i class="fa fa-check-circle"></i></span>
+                    <i class="fa fa-check-circle"></i></span>
             </h5>
 
             <p>
@@ -32,9 +32,9 @@
             <input type="file" name="files" ng-model="additionalImages" class="form-control" ngf-select multiple accept="image/*"/>
 
             <div class="text-smaller">
-                    <span class="progress" *ngIf="f.progress >=0">
-						<div style="width:100%" ng-bind="f.progress + '%'" class="ng-binding">100%</div>
-					</span>
+                <span class="progress" *ngIf="f.progress >=0">
+                    <div style="width:100%" ng-bind="f.progress + '%'" class="ng-binding">100%</div>
+                </span>
                 <span *ngIf="f.result" class="">All images uploaded successfully.</span>
             </div>
             {{errorMsg}}
