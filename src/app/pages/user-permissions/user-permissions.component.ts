@@ -60,10 +60,10 @@ export class UserPermissionsComponent implements OnInit {
 
         this.apiService.savePermission(data).subscribe((response: any) => {
             if (response.ok) {
-                const index = this.permissions.findIndex((item) => {
+                const index = this.permissions.findIndex(item => {
                     return item.user == data.user;
                 });
-console.log(index);
+
                 if (index != -1) {
                     this.permissions[index].permissions = data.permissions;
                 }
