@@ -157,6 +157,32 @@ app.route('/api/permissions/all').get((req, res) => {
     );
 });
 
+app.route('/api/permissions').post((req, res) => {
+    mongoDb.connect(
+        'mongodb://localhost:27017',
+        {useNewUrlParser: true},
+        (err, client) => {
+            if (err) {
+                res.status(500);
+                res.send();
+            }
+
+            let db = client.db(databaseName);
+            let collection = db.collection(permissionCollection);
+
+            collection.update({user:req.body.user} , {user:req.body.user, permissions: req.body.permissions}, {upsert: true}, (err, items) => {
+                if (err){
+                    res.status(400)
+                    res.send(err);
+                }
+                res.send(items);
+            })
+
+            client.close;
+        }
+    );
+});
+
 app.route('/api/is-authorized/').post((req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');

@@ -99,6 +99,14 @@ export class ApiService {
         );
     }
 
+    public savePermission(data): Observable<any[]> {
+        return this.http.post(this.getApiUrl('permissions'), data).pipe(
+            map((response: any) => {
+                return response;
+            })
+        );
+    }
+
     public isAuthorized(array: any): Observable<any> {
         return this.http.post<any>(this.getApiUrl('is-authorized'), array).pipe(
             map((response: any) => {
