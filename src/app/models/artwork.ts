@@ -13,6 +13,7 @@ export class Artwork {
     size: string;
     text: string;
     thumbnail: string;
+    bgColor?: string;
 
     constructor(assetRefno, title, artist) {
         this.assetRefNo = assetRefno;

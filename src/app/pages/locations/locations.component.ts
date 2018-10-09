@@ -1,44 +1,44 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../services/api/api.service';
-import {IsAuthorizedService} from '../../services/auth/isAuthorizedService';
-import {FilterPipe} from '../../services/customPipes/customPipes.service';
 import {Artwork} from '../../models/artwork';
-import {Artist} from '../../models/artist';
-import {ActivatedRoute, ParamMap} from '@angular/router';
-import {switchMap, map} from 'rxjs/operators';
-import {forkJoin, Observable} from 'rxjs';
-import {ExternalLinkService} from '../../services/external-link/external-link.service';
-import {Pipe, PipeTransform} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {PermissionService} from '../../services/permission/permission.service';
 
 @Component({
     selector: 'app-locations',
     templateUrl: './locations.component.html',
     styleUrls: ['./locations.component.scss'],
-    providers: [FilterPipe]
 })
-
 export class LocationsComponent implements OnInit {
-
     loading: boolean;
-    retrivedData: Artwork[];
-    artists: Artist[] = [];
+    artists: string[] = [];
     artworks: Artwork[] = [];
     error: string;
-    newJsonArray: any[] = [];
     officelocations: any[] = [];
     filter: any = {};
-    newFilter: any = {};
     showLightBox: boolean;
     inspectionOn: boolean;
     flexBoxImage: string;
     viewLocationInsuredAndProvenancePermission: boolean;
+    originalArtworks: Artwork[];
 
-    constructor(public apiService: ApiService, private route: ActivatedRoute, private filterPipe: FilterPipe, private isAuthorizedService: IsAuthorizedService) {
+    constructor(
+        private permissionService: PermissionService,
+        public apiService: ApiService,
+        private route: ActivatedRoute    ) {
         this.inspectionOn = false; // TODO replace this with settings service
         this.showLightBox = false;
         this.flexBoxImage = null;
         this.error = null;
         this.loading = true;
+
+        this.filter = {
+            officeLocation: '',
+            artist: '',
+            searchTerm: '',
+            searchArtist: false,
+            searchLocation: false
+        };
 
         if (this.route.snapshot.params['artistName']) {
             this.filter.artist = this.route.snapshot.params['artistName'];
@@ -51,103 +51,103 @@ export class LocationsComponent implements OnInit {
 
         this.getArtworks();
 
-        this.isAuthorizedService.checkAuth("view-location-insured-and-provenance").subscribe((response) => {
-            if (response.status == 200) {
-                this.viewLocationInsuredAndProvenancePermission = true;
-            } else if (response.status == 401) {
-                this.viewLocationInsuredAndProvenancePermission = false;
-            }
-        });
+        this.permissionService
+            .checkPermission('view-location-insured-and-provenance')
+            .subscribe((response: boolean) => {
+                this.viewLocationInsuredAndProvenancePermission = response;
+            });
     }
 
     private getArtworks() {
-        this.apiService.artworks().subscribe((response) => {
+        this.apiService.artworks().subscribe((response: Artwork[]) => {
             if (response.length === 0) {
                 this.error = 'Please upload artworks data.';
             }
             this.loading = false;
-            this.retrivedData = response;
 
-            for (var key in this.retrivedData) {
-                this.newJsonArray.push(this.retrivedData[key]);
-            }
+            this.originalArtworks = response.sort((a, b) => a.officeLocation.localeCompare(b.officeLocation));
 
-            //sort by 'officeLocation'
-            this.newJsonArray.sort((a, b) => a.officeLocation.localeCompare(b.officeLocation));
+            let colorIndex = 0;
 
-            var newData = [];
-            var color = 'locationBg0';
-            var locationBg = 0;
+            this.originalArtworks.forEach((artwork: Artwork) => {
+                const artistIndex = this.artists.findIndex(item => artwork.artist == item);
 
-            for (var i = 0; i < this.newJsonArray.length; i++) {
-                var item = this.newJsonArray[i];
+                if (artistIndex === -1) {
+                    this.artists.push(artwork.artist);
+                }
 
-                /* Cycle thru 0 - 3 different backgound colors based on location */
-                var index = this.officelocations.findIndex(val => val.location == item.officeLocation);
+                const index = this.officelocations.findIndex(item => artwork.officeLocation == item);
+
                 if (index === -1) {
-                    locationBg++; // go to next color if location is different from last loop
-                    if (locationBg > 4) {
-                        locationBg = 0; // if it's over 2 go back to 0
+                    colorIndex++;
+                    if (colorIndex > 3) {
+                        colorIndex = 0;
                     }
-                    color = 'locationBg' + locationBg;
-                    var location = {location: item.officeLocation, color: color};
-                    this.officelocations.push(location);
-                    item.locationBg = color; // set the new bg to be used heref
-                } else {
-                    color = this.officelocations[index].color;
-                    item.locationBg = color;
+
+                    this.officelocations.push(artwork.officeLocation);
                 }
 
-                if (this.artists.indexOf(item.artist) == -1 && item.artist !== "") {
-                    this.artists.push(item.artist);
-                }
-                newData.push(item);
-            }
-            this.artworks = newData;
-            this.filterArtworks(this.filter);
+                artwork.bgColor = `background-${colorIndex}`;
+            });
+
+            this.filterArtworks();
         });
     }
 
-    filterArtworks(filter: any) {
-        if (filter.officeLocation !== "" || filter.artist !== "") {
-            if (filter.officeLocation !== "" && filter.officeLocation != undefined) {
-                this.newFilter['officeLocation'] = filter.officeLocation;
-            }
-            if (filter.artist !== "" && filter.artist != undefined) {
-                this.newFilter['artist'] = filter.artist;
-            }
+    filterArtworks() {
+        const searchTerm = this.filter.searchTerm.toLowerCase();
+
+        let filtered: Artwork[] = this.originalArtworks;
+
+        if (this.filter.officeLocation !== '') {
+            filtered = filtered.filter(artwork => {
+                return artwork.officeLocation == this.filter.officeLocation;
+            });
         }
 
-        this.artworks = this.filterPipe.transform(this.artworks, this.newFilter);
-
-        this.newFilter = {};
-
-        if (filter.searchTerm !== "") {
-            if (filter.searchArtist || filter.searchLocation) {
-                if (filter.searchArtist) {
-                    this.newFilter.artist = filter.searchTerm;
-                }
-                if (filter.searchLocation) {
-                    this.newFilter.officeLocation = filter.searchTerm;
-                }
-                this.artworks = this.filterPipe.transform(this.artworks, this.newFilter);
-            }
+        if (this.filter.artist != '') {
+            filtered = filtered.filter(artwork => {
+                return artwork.artist == this.filter.artist;
+            });
         }
+
+        if (this.filter.searchTerm != '') {
+            filtered = filtered.filter(artwork => {
+                const artist = artwork.artist.toLowerCase();
+                const location = artwork.officeLocation.toLowerCase();
+
+                const inArtist = artist.indexOf(searchTerm) !== -1;
+                const inLocation = location.indexOf(searchTerm) !== -1;
+
+                if (this.filter.searchArtist && !this.filter.searchLocation) {
+                    return inArtist;
+                }
+
+                if (this.filter.searchLocation && !this.filter.searchArtist) {
+                    return inLocation;
+                }
+
+                if (this.filter.searchLocation == this.filter.searchArtist) {
+                    return inArtist || inLocation;
+                }
+
+                return artist.indexOf(searchTerm) !== -1;
+            });
+        }
+
+        this.artworks = filtered;
     }
 
-
     openLightBox(artwork: Artwork) {
-        this.apiService.getImage(artwork.assetRefNo)
-            .subscribe((image: string) => {
-                this.flexBoxImage = image;
-                this.showLightBox = true;
-            });
+        this.apiService.getImage(artwork.assetRefNo).subscribe((image: string) => {
+            this.flexBoxImage = image;
+            this.showLightBox = true;
+        });
     }
 
     closeLightBox() {
         this.showLightBox = false;
     }
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 }

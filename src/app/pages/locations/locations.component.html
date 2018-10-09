@@ -1,6 +1,7 @@
-<div id="outer">
+<div id="outer" class="artwork-locations">
+
     <div class="filters">
-        <div  class="filter-header button" (click)="showFilters = !showFilters">
+        <div class="filter-header button" (click)="showFilters = !showFilters">
             <h2>Filters</h2>
             <span class="arrow-down" *ngIf="!showFilters"></span>
             <span class="arrow-up" *ngIf="showFilters"></span>
@@ -9,60 +10,51 @@
             <div class="filter-item filter-select-container" *ngIf="viewLocationInsuredAndProvenancePermission">
                 <label class="filter-select-item">Filter by office location: </label>
                 <div class="filter-select-item">
-                    <select [(ngModel)]="filter.officeLocation"
-                        class="button button-3d button-pill" (change)="filterArtworks(filter)">
+                    <select [(ngModel)]="filter.officeLocation" class="button button-3d button-pill" (change)="filterArtworks()">
                         <option value="">All</option>
-                        <option *ngFor="let officelocation of officelocations"                                
-                            value="{{officelocation.location}}">{{officelocation.location}}</option>
+                        <option *ngFor="let officelocation of officelocations" value="{{officelocation}}">{{officelocation}}</option>
                     </select>
                 </div>
             </div>
             <div class="filter-item filter-select-container">
                 <label class="filter-select-item"> Filter by artist: </label>
                 <div class="filter-select-item">
-                    <select [(ngModel)]="filter.artist"
-                        class="button button-3d button-pill" (change)="filterArtworks(filter)">
+                    <select [(ngModel)]="filter.artist" class="button button-3d button-pill" (change)="filterArtworks()">
                         <option value="">All</option>
-                        <option *ngFor="let artist of artists"
-                            value="{{artist}}">{{artist}}</option>
+                        <option *ngFor="let artist of artists" value="{{artist}}">{{artist}}</option>
                     </select>
                 </div>
             </div>
             <div class="filter-item">
-                <input type="text" 
-                       class="button-pill search-term" 
-                       [(ngModel)]="filter.searchTerm"
-                       placeholder="Search here"
-                       (change)="filterArtworks(filter)"/><br/>
+                <input type="text" class="button-pill search-term" [(ngModel)]="filter.searchTerm" placeholder="Search here"
+                    (change)="filterArtworks()" /><br />
                 <div class="filter-group">
                     <label>
-                        <input type="checkbox" 
-                               [(ngModel)]="filter.searchArtist" 
-                               id="search_artist"
-                               (change)="filterArtworks(filter)"/>Search by artists
+                        <input type="checkbox" [(ngModel)]="filter.searchArtist" id="search_artist" (change)="filterArtworks()" />Search
+                        by artists
                     </label>
-                </div><!--
-                -->                <div class="filter-group">
+                </div>
+                <!--
+                -->
+                <div class="filter-group">
                     <label>
-                        <input type="checkbox"
-                               [(ngModel)]="filter.searchLocation" 
-                               id="search_location" 
-                               (change)="filterArtworks(filter)"/>Search by Location
+                        <input type="checkbox" [(ngModel)]="filter.searchLocation" id="search_location" (change)="filterArtworks()" />Search
+                        by Location
                     </label>
                 </div>
             </div>
         </div>
     </div>
+
     <img *ngIf="spinner" ng-src="assets/images/spinner.gif" style="background:none">
-    <div class="flex-container">
+    <div class="flex-container artworks">
         <div *ngFor="let artwork of artworks">
-            <div id="productos"
-             class="col col-span-3">
+            <div id="productos" class="col col-span-3 artwork">
                 <div class="container">
-                    <a class="lightbox" href="javascript:void(0)" (click)="openLightBox(artwork)">
-                        <img [src]="artwork.thumbnail" alt="No image"/>
+                    <a class="lightbox" (click)="openLightBox(artwork)">
+                        <img [src]="artwork.thumbnail" alt="No image" />
                     </a>
-                    <a href="#/view3/{{artwork.assetRefNo}}">
+                    <a [routerLink]="['/', 'artwork', artwork.assetRefNo]">
                         <div>
                             <div>{{artwork.assetRefNo}}.</div>
                             <div>{{artwork.title}}</div>
@@ -71,10 +63,7 @@
                             </span>
                         </div>
                         <div *ngIf="artwork.artist">by {{artwork.artist}}</div>
-                        <div 
-                            *ngIf="viewLocationInsuredAndProvenancePermission"
-                            ng-class="'' == selectedLocation ? 'all-locations-same' : ''" class="{{artwork.locationBg}} artwork__locationBg {{allArtWorksClass}}"
-                            style="display: table-cell; vertical-align: bottom;">{{artwork.officeLocation}}
+                        <div *ngIf="viewLocationInsuredAndProvenancePermission" [ngClass]="['location' ,artwork.bgColor]">{{artwork.officeLocation}}
                         </div>
                     </a>
                 </div>
@@ -83,6 +72,6 @@
     </div>
 </div>
 <div class="lightbox-target" id="view3-lightbox" *ngIf="showLightBox" (click)="closeLightBox()">
-    <img id="view3-lightbox-image" alt="No Image" [src]="flexBoxImage"/>
+    <img id="view3-lightbox-image" alt="No Image" [src]="flexBoxImage" />
     <a class="lightbox-close" (click)="closeLightBox()"></a>
 </div>

@@ -12,32 +12,35 @@ $card-radius__img: 5px;
     margin-right: 20px;
 
     /* From intense sierra */
-    #productos{
-
+    .artwork {
         .container {
             background-color: aliceblue;
-            height: 100%;
             border-radius: $card-radius;
             text-align: center;
-            height:100%;
+            height: 100%;
             width: 130px;
-            border:5px;
-            -webkit-box-shadow: 0px 15px 13px 0px rgba(0,0,0,0.35);
-            -moz-box-shadow: 0px 15px 13px 0px rgba(0,0,0,0.35);
-            box-shadow: 0px 15px 13px 0px rgba(0,0,0,0.35);
+            border: 5px;
+            -webkit-box-shadow: 0px 15px 13px 0px rgba(0, 0, 0, 0.35);
+            -moz-box-shadow: 0px 15px 13px 0px rgba(0, 0, 0, 0.35);
+            box-shadow: 0px 15px 13px 0px rgba(0, 0, 0, 0.35);
+
+            .location {
+                border: 1px solid;
+                border-bottom-right-radius: 7px;
+                border-bottom-left-radius: 7px;
+            }
         }
 
         img {
             border-radius: $card-radius__img;
-            height:100px;
-            width:100px;
+            height: 100px;
+            width: 100px;
             margin: 15px;
             border-top: solid black 1px;
             border-left: solid black 1px;
         }
     }
 }
-
 
 .lightbox-target {
     opacity: 1;
@@ -47,7 +50,7 @@ $card-radius__img: 5px;
     position: fixed;
     width: 100%;
     background: rgba(0, 0, 0, 0.7);
-    transition: opacity .5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
     overflow: hidden;
 
     img {
@@ -64,10 +67,10 @@ $card-radius__img: 5px;
         border: 3px solid white;
         box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
         box-sizing: border-box;
-        -webkit-transition: .5s ease-in-out;
-        -moz-transition: .5s ease-in-out;
-        -o-transition: .5s ease-in-out;
-        transition: .5s ease-in-out;
+        -webkit-transition: 0.5s ease-in-out;
+        -moz-transition: 0.5s ease-in-out;
+        -o-transition: 0.5s ease-in-out;
+        transition: 0.5s ease-in-out;
     }
 }
 
@@ -100,16 +103,16 @@ a.lightbox-close {
     position: absolute;
     top: -80px;
     right: 0;
-    -webkit-transition: .5s ease-in-out;
-    -moz-transition: .5s ease-in-out;
-    -o-transition: .5s ease-in-out;
-    transition: .5s ease-in-out;
-    cursor: pointer
+    -webkit-transition: 0.5s ease-in-out;
+    -moz-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
 }
 
 /* Provides part of the "X" to eliminate an image from the close link */
 a.lightbox-close:before {
-    content: "";
+    content: '';
     display: block;
     height: 30px;
     width: 1px;
@@ -125,7 +128,7 @@ a.lightbox-close:before {
 
 /* Provides part of the "X" to eliminate an image from the close link */
 a.lightbox-close:after {
-    content: "";
+    content: '';
     display: block;
     height: 30px;
     width: 1px;
@@ -150,47 +153,41 @@ a.lightbox-close:after {
     }
 }
 
-.filters{
-    display:flex;
+.filters {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     width: 80%;
-    margin:auto;
+    margin: auto;
 
-    input[type=checkbox]{
+    input[type='checkbox'] {
         opacity: 1;
         position: initial;
         cursor: pointer;
     }
-    label
-    {
+    label {
         cursor: pointer;
     }
-    .filter-group
-    {
+    .filter-group {
         padding-bottom: 5px;
     }
-    .search-term 
-    {
+    .search-term {
         height: 32px;
-        padding : 0 10px;
+        padding: 0 10px;
         margin-bottom: 5px;
     }
-    .filter-header
-    {
-        padding:0;
+    .filter-header {
+        padding: 0;
         position: relative;
-        width: 100%
+        width: 100%;
     }
-    .filter-header h2
-    {
+    .filter-header h2 {
         margin: 0;
     }
-    .filter-body
-    {
-        padding-top:10px;
+    .filter-body {
+        padding-top: 10px;
         background-color: #eee;
-        width:100%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -198,13 +195,13 @@ a.lightbox-close:after {
     }
 }
 
-.filter-item{
+.filter-item {
     order: 1;
     flex-grow: 1;
     margin-bottom: 10px;
     max-width: 100%;
 }
-.filter-select-container{
+.filter-select-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -212,7 +209,7 @@ a.lightbox-close:after {
     align-items: center;
 }
 
-.filter-select-item{
+.filter-select-item {
     order: 1;
     flex-grow: 1;
     max-width: 100%;
@@ -241,4 +238,17 @@ a.lightbox-close:after {
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
     border-bottom: 16px solid #bbbbbb;
+}
+
+.background-0 {
+    background-color: #ffe5ff;
+}
+.background-1 {
+    background-color: #e5e5ff;
+}
+.background-2 {
+    background-color: #d9ffb3;
+}
+.background-3 {
+    background-color: #b3ffd9;
 }

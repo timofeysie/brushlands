@@ -170,40 +170,58 @@ app.route('/api/permissions').post((req, res) => {
             let db = client.db(databaseName);
             let collection = db.collection(permissionCollection);
 
-            collection.update({user:req.body.user} , {user:req.body.user, permissions: req.body.permissions}, {upsert: true}, (err, items) => {
-                if (err){
-                    res.status(400)
-                    res.send(err);
+            collection.update(
+                {user: req.body.user},
+                {user: req.body.user, permissions: req.body.permissions},
+                {upsert: true},
+                (err, items) => {
+                    if (err) {
+                        res.status(400);
+                        res.send(err);
+                    }
+                    res.send(items);
                 }
-                res.send(items);
-            })
+            );
 
             client.close;
         }
     );
 });
 
-app.route('/api/is-authorized/').post((req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+app.route('/api/check-permission').get((req, res) => {
+    mongoDb.connect(
+        'mongodb://localhost:27017',
+        {useNewUrlParser: true},
+        (err, client) => {
+            if (err) {
+                res.status(500);
+                return res.send();
+            }
 
-    let status = null;
-    var busboy = new Busboy({headers: req.headers});
-    busboy.on('field', function(key, value, keyTruncated, valueTruncated) {
-        var email = JSON.parse(value).email;
-        var task = JSON.parse(value).task;
+            let db = client.db(databaseName);
+            let collection = db.collection(permissionCollection);
 
-        var file = fs.readFileSync('.permissions.json').toString();
-        var assignedPermissions = JSON.parse(file).assignedPermissions;
-        var index = assignedPermissions[task].indexOf(email);
-        if (index == -1) {
-            status = 401;
-        } else {
-            status = 200;
+            let user = req.query.user;
+            let permission = req.query.permission;
+
+            collection.findOne({user: user}, (err, item) => {
+                if (err || !item) {
+                    res.status(401);
+                    return res.send();
+                }
+                console.log(item);
+                const index = item.permissions.indexOf(permission);
+
+                if (index != -1) {
+                    res.status(200);
+                    return res.send(item);
+                }
+
+                res.status(401);
+                return res.send();
+            });
+
+            client.close();
         }
-    });
-    busboy.on('finish', function() {
-        res.send({status});
-    });
-    return req.pipe(busboy);
+    );
 });
