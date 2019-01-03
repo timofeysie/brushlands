@@ -11,6 +11,7 @@ import {ArtworkComponent} from './pages/artwork/artwork.component';
 import {ArtistComponent} from './pages/artist/artist.component';
 import {LocationsComponent} from './pages/locations/locations.component';
 import { UserPermissionsComponent } from './pages/user-permissions/user-permissions.component';
+import { UploadComponent } from './pages/upload/upload.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { UserPermissionsComponent } from './pages/user-permissions/user-permissi
         ArtworkComponent,
         ArtistComponent,
         LocationsComponent,
-        UserPermissionsComponent
+        UserPermissionsComponent,
+        UploadComponent
     ],
     imports: [
         BrowserModule,

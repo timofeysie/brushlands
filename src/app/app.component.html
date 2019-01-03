@@ -13,7 +13,7 @@
                 </li>
 
                 <li role="presentation">
-                    <a href="#/add" class="button button-3d button-pill"> Update </a>
+                    <a [routerLink]="['/', 'upload']" class="button button-3d button-pill"> Update </a>
                 </li>
 
                 <li role="presentation">
@@ -50,7 +50,7 @@
 
                 <a href="#/add" class="button button-3d button-pill"> Update </a>
 
-                <a href="#/data" class="button button-3d button-pill"> Collection Data </a>
+                <a  [routerLink]="['/', 'upload']" class="button button-3d button-pill"> Collection Data </a>
 
                 <a href="#/inspections" class="button button-3d button-pill"> Inspections </a>
 
@@ -78,7 +78,7 @@
 
                 <a href="#" data-ng-click='signout()' class="menu-item" ng-if="isAuthenticated">Logout</a>
 
-                <a href="#/data" class="menu-item">Data</a>
+                <a  [routerLink]="['/', 'upload']" class="menu-item">Data</a>
 
                 <a href="#/add" class="menu-item">Update</a>
 

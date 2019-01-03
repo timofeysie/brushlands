@@ -32,7 +32,10 @@
               "node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": [
-              "node_modules/auth0-js/build/auth0.min.js"
+              "node_modules/auth0-js/build/auth0.min.js",
+              {
+                "input": "node_modules/document-register-element/build/document-register-element.js"
+              }
             ]
           },
           "configurations": {

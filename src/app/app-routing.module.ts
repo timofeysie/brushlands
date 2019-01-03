@@ -8,6 +8,8 @@ import {ArtworkComponent} from './pages/artwork/artwork.component';
 import {ArtistComponent} from './pages/artist/artist.component';
 import {LocationsComponent} from './pages/locations/locations.component';
 import {UserPermissionsComponent} from './pages/user-permissions/user-permissions.component';
+import {UploadComponent} from './pages/upload/upload.component';
+import {PermissionGuard} from './guards/permission/permission.guard';
 
 const routes = [
     {path: 'login', component: LoginComponent},
@@ -16,8 +18,14 @@ const routes = [
     {path: 'artist/:name', component: ArtistComponent, canActivate: [AuthGuard]},
     {path: 'locations', component: LocationsComponent, canActivate: [AuthGuard]},
     {path: 'locations/:artistName', component: LocationsComponent, canActivate: [AuthGuard]},
+    {
+        path: 'upload',
+        component: UploadComponent,
+        canActivate: [AuthGuard, PermissionGuard],
+        data: {permission: 'upload-and-backup-artworks'}
+    },
     {path: 'user-permissions', component: UserPermissionsComponent, canActivate: [AuthGuard]},
-    {path: '', redirectTo : '/artworks', pathMatch: 'full'}
+    {path: '', redirectTo: '/artworks', pathMatch: 'full'}
 ];
 
 @NgModule({

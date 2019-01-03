@@ -1,0 +1,49 @@
+<div class="uploads">
+
+    <div>Last updated at : {{lastUpdatedDate | date:'MM/dd/yyyy, hh:mm:ss a'}}</div>
+    <br/>
+    <form [formGroup]="artworkForm">
+        <label class="button button-3d-caution button-pill">
+            <input type="file" style="display: none;" formControlName="file" (change)="uploadFile()" #file accept=".docx"/>
+            <i class="fa fa-cloud-upload"></i> Upload File
+        </label>
+    </form>
+    <br/>
+
+    <div *ngIf="uploadedFile">{{uploadedFile.name}}
+        <span class="progress" ng-show="uploadedFile.progress >= 0">
+            <div style="width:100%" ng-bind="uploadedFile.progress + '%'" class="ng-binding">100%</div>
+        </span>
+        <span *ngIf="showStartedToProcess">Please wait until the uploaded document is processed.</span>
+        <span *ngIf="uploadedFileResult" class="">Uploaded and Processed Successfully.</span>
+        <div *ngIf="error" class="error-file-upload">Invalied file.</div>
+    </div>
+    <!-- <div>{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+        <span class="progress" ng-show="f.progress >= 0">
+            <div style="width:100%" ng-bind="f.progress + '%'" class="ng-binding">100%</div>
+        </span>
+        <span ng-show="showStartedToProcess">Please wait until the uploaded document is processed.</span>
+        <span ng-show="f.result" class="">Uploaded and Processed Successfully.</span>
+        <div ng-show="errors.length > 0" class="error-list">
+            <ul>
+                <li ng-repeat="error in errors">{{error}}</li>
+            </ul>
+        </div>
+    </div> -->
+    <br/>
+    <button type="button" class="button button-3d-primary button-pill" (click)="getFromFirebase()">
+        Use Backup
+    </button>
+    <br/><br/>
+    <div *ngIf="showBackupProcessing">Please wait until the data is backed up.</div>
+    <div *ngIf="isBackupSuccess">Backed up Successfully.</div>
+    <br/>
+    <div id="download-backup">
+        <button ng-if="permissions['upload-and-backup-artworks']" type="button" class="button button-3d-primary button-pill"
+        (click)="downloadBackup()" ng-disabled="fileGenerating">
+            Download Backup
+        </button>
+        <br/><br/>
+        <div *ngIf="fileGenerating">Please wait until download begins.</div>
+    </div>
+</div>

@@ -1,16 +1,17 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Artwork} from '../../models/artwork';
-import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
-import {Artist} from '../../models/artist';
-import {environment} from '../../../environments/environment';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Artwork } from '../../models/artwork';
+import { Images } from '../../models/images';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { Artist } from '../../models/artist';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApiService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     private getApiUrl(url: string) {
         return environment.backendUrl + url;
@@ -58,9 +59,42 @@ export class ApiService {
         );
     }
 
+    public images(): Observable<Images[]> {
+        return this.http.get(this.getApiUrl('images')).pipe(
+            map((response: any) => {
+                return response.map(item => {
+                    const image = new Images(item.assetRefNo, item.imageFile);
+                    return image;
+                });
+            })
+        );
+    }
+
     public getImage(id): Observable<string> {
         return this.http.get(this.getApiUrl('image/' + id)).pipe(map((response: any) => response.imageFile));
     }
+
+    public artists(): Observable<Artist[]> {
+        return this.http.get(this.getApiUrl('artist')).pipe(
+            map((response: any) => {
+                return response.map(item => {
+                    const artist = new Artist(item.name);
+                    artist.skinName = item.skinName;
+                    artist.language = item.language;
+                    artist.region = item.region;
+                    artist.dreaming = item.dreaming;
+                    artist.DOB = item.DOB;
+                    artist.bio.body = item.bio ? item.bio.body : null;
+                    artist.bio.title = item.bio ? item.bio.title : null;
+                    artist.bio.AASDLink = item.bio ? item.bio.AASDLink : null;
+                    artist.bio.WikiLink = item.bio ? item.bio.WikiLink : null;
+                    return artist;
+                });
+
+            })
+        );
+    }
+
 
     public getArtist(name): Observable<Artist> {
         return this.http.get(this.getApiUrl('artist/' + name)).pipe(
@@ -109,6 +143,40 @@ export class ApiService {
 
     public isAuthorized(array: any): Observable<any> {
         return this.http.post<any>(this.getApiUrl('is-authorized'), array).pipe(
+            map((response: any) => {
+                return response;
+            })
+        );
+    }
+
+    public uploadFile(file): Observable<any> {
+        const data = new FormData();
+        data.append('file', file);
+        return this.http.post(this.getApiUrl('upload'), data, { reportProgress: true, responseType: 'text' }).pipe(
+            map((response: any) => {
+                return response;
+            })
+        );
+    }
+
+    public getLastUpdateDate(): Observable<any> {
+        return this.http.get(this.getApiUrl('last-update-date')).pipe(
+            map((response: any) => {
+                return response.value;
+            })
+        );
+    }
+
+    public downloadBackup(): Observable<any> {
+        return this.http.get(this.getApiUrl('download-backup')).pipe(
+            map((response: any) => {
+                return response;
+            })
+        );
+    }
+
+    public saveFromDb(data): Observable<any> {
+        return this.http.post(this.getApiUrl('save-from-db'), data, { reportProgress: true, responseType: 'text' }).pipe(
             map((response: any) => {
                 return response;
             })
