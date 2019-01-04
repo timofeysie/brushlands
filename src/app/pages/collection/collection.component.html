@@ -1,0 +1,84 @@
+<div class="flex-container">
+    <table class="table">
+        <thead>
+            <tr class="table-active">
+                <th>
+                    <a href="javascript:;" (click)="sortType = 'assetRefNo'; sortReverse = !sortReverse">
+                        No.
+                        <span *ngIf="sortType == 'assetRefNo' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span *ngIf="sortType == 'assetRefNo' && sortReverse" class="fa fa-caret-down"></span>
+                    </a>
+                    <div class="dot"> &nbsp; </div>
+                </th>
+                <th>
+                    <a href="javascript:;" (click)="sortType = 'title'; sortReverse = !sortReverse">
+                        Title
+                        <span *ngIf="sortType == 'title' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span *ngIf="sortType == 'title' && sortReverse" class="fa fa-caret-down"></span>
+                    </a>
+                    <div class="dot"> &nbsp; </div>
+                </th>
+                <th>
+                    <a href="javascript:;" (click)="sortType = 'artist'; sortReverse = !sortReverse">
+                        Artist
+                        <span *ngIf="sortType == 'artist' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span *ngIf="sortType == 'artist' && sortReverse" class="fa fa-caret-down"></span>
+                    </a>
+                    <div class="dot"> &nbsp; </div>
+                </th>
+                <th>
+                    <a href="javascript:;" (click)="sortType = 'officeLocation'; sortReverse = !sortReverse">
+                        Location
+                        <span *ngIf="sortType == 'officeLocation' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span *ngIf="sortType == 'officeLocation' && sortReverse" class="fa fa-caret-down"></span>
+                    </a>
+                    <div class="dot"> &nbsp; </div>
+                </th>
+                <th>
+                    <a href="javascript:;" (click)="sortType = 'src'; sortReverse = !sortReverse">
+                        Image
+                        <span *ngIf="sortType == 'src' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span *ngIf="sortType == 'src' && sortReverse" class="fa fa-caret-down"></span>
+                    </a>
+                    <div class="dot"> &nbsp; </div>
+                </th>
+                <th>
+                    <a href="javascript:;" (click)="sortType = 'size'; sortReverse = !sortReverse">
+                        Size
+                        <span *ngIf="sortType == 'size' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span *ngIf="sortType == 'size' && sortReverse" class="fa fa-caret-down"></span>
+                    </a>
+                    <div class="dot"> &nbsp; </div>
+                </th>
+                <th>
+                    <a href="javascript:;" (click)="sortType = 'insured'; sortReverse = !sortReverse">
+                        Insured
+                        <span *ngIf="sortType == 'insured' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span *ngIf="sortType == 'insured' && sortReverse" class="fa fa-caret-down"></span>
+                    </a>
+                    <div class="dot"> &nbsp; </div>
+                </th>
+                <th>
+                    <a href="javascript:;" (click)="sortType = 'provenance'; sortReverse = !sortReverse">
+                        Provenance
+                        <span *ngIf="sortType == 'provenance' && !sortReverse" class="fa fa-caret-up"></span>
+                        <span *ngIf="sortType == 'provenance' && sortReverse" class="fa fa-caret-down"></span>
+                    </a>
+                    <div class="dot"> &nbsp; </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let artwork of artworkList | sortBy: sortType: sortReverse">
+                <td>{{artwork.assetRefNo}}</td>
+                <td>{{artwork.title}}</td>
+                <td>{{artwork.artist}}</td>
+                <td>{{artwork.officeLocation}}</td>
+                <td>{{!artwork.imageFileName ? 'image-undefined.jpeg' : artwork.imageFileName}}</td>
+                <td>{{artwork.size}}</td>
+                <td>{{artwork.insured}}</td>
+                <td>{{artwork.provenance}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

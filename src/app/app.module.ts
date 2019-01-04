@@ -12,6 +12,8 @@ import {ArtistComponent} from './pages/artist/artist.component';
 import {LocationsComponent} from './pages/locations/locations.component';
 import { UserPermissionsComponent } from './pages/user-permissions/user-permissions.component';
 import { UploadComponent } from './pages/upload/upload.component';
+import { CollectionComponent } from './pages/collection/collection.component';
+import { SortPipe } from './sort.pipe';
 
 @NgModule({
     declarations: [
@@ -22,7 +24,9 @@ import { UploadComponent } from './pages/upload/upload.component';
         ArtistComponent,
         LocationsComponent,
         UserPermissionsComponent,
-        UploadComponent
+        UploadComponent,
+        CollectionComponent,
+        SortPipe
     ],
     imports: [
         BrowserModule,

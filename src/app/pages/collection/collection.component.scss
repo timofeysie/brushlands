@@ -1,0 +1,26 @@
+.table{
+    border-spacing: 0px;
+    width: 100%;
+}
+
+.dot {
+    height: 20px;
+    width: 100%;
+    background-image: url('../../../assets/images/dots.png');
+    background-size: contain;
+  }
+.table-active{
+    font-weight: bold;
+    th{
+        padding: 5px;
+        min-width: 100px;
+        text-align: left;
+        .fa{
+            font-size: small;
+        }
+    }
+}
+td{
+    padding: 5px;
+    text-align: left;
+}
