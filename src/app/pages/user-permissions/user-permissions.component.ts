@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {ApiService} from '../../services/api/api.service';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../services/api/api.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-user-permissions',
@@ -8,9 +8,10 @@ import {FormGroup, FormControl, Validators} from '@angular/forms';
     styleUrls: ['./user-permissions.component.scss']
 })
 export class UserPermissionsComponent implements OnInit {
-    permissions: {user: string; permissions: string[]}[];
+    permissions: { user: string; permissions: string[] }[];
     permissionForm: FormGroup;
     selectedUser: any;
+    showPermissions: boolean;
 
     constructor(private apiService: ApiService) {
         this.permissionForm = new FormGroup({
@@ -22,6 +23,7 @@ export class UserPermissionsComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.showPermissions = false;
         this.apiService.getPermission().subscribe((response: any[]) => {
             this.permissions = response;
             console.log(this.permissions);
@@ -29,6 +31,7 @@ export class UserPermissionsComponent implements OnInit {
 
         this.permissionForm.get('user').valueChanges.subscribe(value => {
             console.log(value);
+            this.showPermissions = true;
             this.permissionForm.patchValue({
                 manageUserPermissions: this.inArray(value.permissions, 'manage-user-permissions'),
                 viewLocationInsuredAndProvenance: this.inArray(

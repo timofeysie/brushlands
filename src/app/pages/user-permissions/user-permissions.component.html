@@ -4,10 +4,11 @@
     <form [formGroup]='permissionForm' (submit)="savePermissions()">
 
         <select formControlName="user" class="button button-3d button-pill">
+            <option value="">Select User</option>
             <option *ngFor="let permission of permissions" [ngValue]='permission'>{{permission.user}}</option>
         </select>
 
-        <div class="permissions">
+        <div *ngIf="showPermissions" class="permissions">
             <div class="permission">
                 <label>
                     <input type="checkbox" formControlName="manageUserPermissions" /> Manage user permissions
@@ -24,9 +25,8 @@
                     <input type="checkbox" formControlName="uploadAndBackupArtworks" /> Upload and backup artworks
                 </label>
             </div>
+            <button type="submit" class="button button-3d-primary button-pill" [disabled]="!permissionForm.valid">Save
+                Permissions</button>
         </div>
-
-        <button type="submit" class="button button-3d-primary button-pill" [disabled]="!permissionForm.valid">Save
-            Permissions</button>
     </form>
 </div>

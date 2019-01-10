@@ -167,6 +167,14 @@ export class ApiService {
         );
     }
 
+    public getInspectedArtworks(): Observable<any> {
+        return this.http.get(this.getApiUrl('get-inspected-artworks')).pipe(
+            map((response: any) => {
+                return response;
+            })
+        );
+    }
+
     public downloadBackup(): Observable<any> {
         return this.http.get(this.getApiUrl('download-backup')).pipe(
             map((response: any) => {
@@ -177,6 +185,22 @@ export class ApiService {
 
     public saveFromDb(data): Observable<any> {
         return this.http.post(this.getApiUrl('save-from-db'), data, { reportProgress: true, responseType: 'text' }).pipe(
+            map((response: any) => {
+                return response;
+            })
+        );
+    }
+
+    public inspect(): Observable<any>{
+        return this.http.get(this.getApiUrl('inspect'), { reportProgress: true, responseType: 'text' }).pipe(
+            map((response: any) => {
+                return response;
+            })
+        );
+    }
+
+    public additionalArtwordData(data): Observable<any> {
+        return this.http.post(this.getApiUrl('add-additional-artwork-data'), data, { reportProgress: true}).pipe(
             map((response: any) => {
                 return response;
             })

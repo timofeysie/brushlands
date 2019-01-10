@@ -9,16 +9,18 @@
 
         <div class="col-xs-12 col-sm-12 col-md-6 center-xs artworkContainer">
             <div class="lightbox" (click)="openLightBox()">
-                <img [src]="artwork.thumbnail" alt="No image"/>
+                <img [src]="artwork.thumbnail" alt="No image" />
             </div>
 
             <h5>
-                {{artwork.assetRefNo}} - {{artwork.title}} <span *ngIf="inspectionOn"> <!--TODO : replace with settings service-->
+                {{artwork.assetRefNo}} - {{artwork.title}} <span *ngIf="inspectionOn">
+                    <!--TODO : replace with settings service-->
                     <i class="fa fa-check-circle"></i></span>
             </h5>
 
             <p>
-                <a routerLink="/artist/{{artwork.artist}}" class="button button-3d-action button-pill"> {{artwork.artist}}</a>
+                <a routerLink="/artist/{{artwork.artist}}" class="button button-3d-action button-pill">
+                    {{artwork.artist}}</a>
             </p>
 
             <p>
@@ -29,21 +31,23 @@
 
             <p>Add Additional Images</p>
 
-            <input type="file" name="files" ng-model="additionalImages" class="form-control" ngf-select multiple accept="image/*"/>
+            <form [formGroup]="additionalData">
+                <input type="file" formControlName="file" class="form-control" #file multiple accept="image/*" />
 
-            <div class="text-smaller">
-                <span class="progress" *ngIf="f.progress >=0">
-                    <div style="width:100%" ng-bind="f.progress + '%'" class="ng-binding">100%</div>
-                </span>
-                <span *ngIf="f.result" class="">All images uploaded successfully.</span>
-            </div>
-            {{errorMsg}}
-            <div>
-                <textarea placeholder="Add additional text" class="form-control" data-ng-model="text"></textarea>
-            </div>
-            <button type="button" class="button button-3d-primary button-pill" ng-click="uploadAdditionalImages(additionalImages)">
-                Submit New Data
-            </button>
+                <div class="text-smaller">
+                    <span class="progress" *ngIf="f.progress >=0">
+                        <div style="width:100%" ng-bind="f.progress + '%'" class="ng-binding">100%</div>
+                    </span>
+                    <span *ngIf="f.result" class="">All images uploaded successfully.</span>
+                </div>
+                {{errorMsg}}
+                <div>
+                    <textarea placeholder="Add additional text" formControlName="textarea" class="form-control"></textarea>
+                </div>
+                <button type="button" class="button button-3d-primary button-pill" (click)="uploadAdditionalImages()">
+                    Submit New Data
+                </button>
+            </form>
 
             <div class="col-md-hide artwork-nav-buttons-sm">
                 <a [routerLink]="['/artwork/',artwork.previous]" *ngIf="artwork.previous" class="button button-3d button-pill next-prev-artwork-button">
@@ -65,6 +69,6 @@
     </div>
 </div>
 <div class="lightbox-target" id="view3-lightbox" *ngIf="showLightBox" (click)="closeLightBox()">
-    <img id="view3-lightbox-image" alt="No Image" [src]="flexBoxImage"/>
+    <img id="view3-lightbox-image" alt="No Image" [src]="flexBoxImage" />
     <a class="lightbox-close" (click)="closeLightBox()"></a>
 </div>

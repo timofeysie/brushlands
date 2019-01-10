@@ -1,0 +1,27 @@
+<div>
+    <h3>Inpections
+        <span *ngIf="inspectionOn">are ON</span>
+        <span *ngIf="!inspectionOn">are OFF</span>
+    </h3>
+</div>
+<div>
+    <a (click)="startInspection()" class="button button-3d-action button-pill" id="form__element">Start inspection</a>
+    &nbsp;
+    <a (click)="stopInspection()" class="button button-3d-caution button-pill" id="form__element">Stop inspection</a>
+    &nbsp;
+    <a (click)="resetInspection()" class="button button-3d-primary button-pill" id="form__element">Reset</a>
+</div>
+
+<div class="flex-container">
+    <div *ngIf="inspectedArtworks.length > 0" class="center-xs artwork-list">
+        <div *ngFor="let artwork of inspectedArtworks">
+            <div class="row center-xs" id="{{artwork.assetRefNo}}">
+                <a href="#/view3/{{artwork.assetRefNo}}" ng-show="!smallWidth" class="button button-3d button-pill">{{artwork.assetRefNo}}</a>
+
+                <a href="#/view3/{{artwork.assetRefNo}}" id="title" class="button button-3d-action  button-pill">{{artwork.title}}</a>
+
+                <a href="#/view2/{{artwork.artist}}" id="artist" class="button button-3d-highlight button-pill">{{artwork.artist}}</a>
+            </div>
+        </div>
+    </div>
+</div>

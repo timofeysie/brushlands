@@ -21,19 +21,15 @@
                 </li>
 
                 <li role="presentation">
-                    <a href="#/inspections" class="button button-3d button-pill"> Inspections </a>
+                    <a [routerLink]="['/', 'inspections']" class="button button-3d button-pill"> Inspections </a>
                 </li>
 
                 <li role="presentation">
                     <a [routerLink]="['/', 'user-permissions']" class="button button-3d button-pill"> User Permissions </a>
                 </li>
 
-                <li role="presentation" ng-if="!isAuthenticated">
-                    <a href="#" ng-click="login()" class="button button-3d button-pill"> Login </a>
-                </li>
-
                 <li role="presentation" ng-if="isAuthenticated">
-                    <a href="#" ng-click="signout()" class="button button-3d button-pill"> Logout </a>
+                    <a (click)="logout()" class="button button-3d button-pill"> Logout </a>
                 </li>
 
             </ul>
@@ -48,15 +44,13 @@
 
                 <a [routerLink]="['/','locations']" class="button button-3d button-pill"> Gallery </a>
 
-                <a href="#/add" class="button button-3d button-pill"> Update </a>
+                <a [routerLink]="['/','upload']" class="button button-3d button-pill"> Update </a>
 
-                <a  [routerLink]="['/', 'upload']" class="button button-3d button-pill"> Collection Data </a>
+                <a [routerLink]="['/', 'collection']" class="button button-3d button-pill"> Collection Data </a>
 
-                <a href="#/inspections" class="button button-3d button-pill"> Inspections </a>
+                <a [routerLink]="['/', 'inspections']" class="button button-3d button-pill"> Inspections </a>
 
-                <a href="#" ng-click="login()" ng-if="!isAuthenticated" class="button button-3d button-pill"> Login </a>
-
-                <a href="#" ng-if="isAuthenticated" ng-click="signout()" class="button button-3d button-pill"> Logout </a>
+                <a ng-if="isAuthenticated" (click)="logout()" class="button button-3d button-pill"> Logout </a>
             </div>
         </div>
     </div>
@@ -74,15 +68,13 @@
                     <span class="hamburger hamburger-3"></span>
                 </label>
 
-                <a href="#" data-ng-click='login()' class="menu-item" ng-if="!isAuthenticated">Login</a>
+                <a data-(click)='logout()' class="menu-item" ng-if="isAuthenticated">Logout</a>
 
-                <a href="#" data-ng-click='signout()' class="menu-item" ng-if="isAuthenticated">Logout</a>
+                <a [routerLink]="['/', 'collection']" class="menu-item">Data</a>
 
-                <a  [routerLink]="['/', 'upload']" class="menu-item">Data</a>
+                <a [routerLink]="['/', 'upload']" class="menu-item">Update</a>
 
-                <a href="#/add" class="menu-item">Update</a>
-
-                <a href="#/inspections" class="menu-item">Inspect</a>
+                <a [routerLink]="['/', 'inspections']" class="menu-item">Inspect</a>
 
                 <a [routerLink]="['/', 'locations']" class="menu-item">Gallery</a>
 

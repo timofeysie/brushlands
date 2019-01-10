@@ -55,6 +55,26 @@ app.route('/api/artworks').get((req, res) => {
     );
 });
 
+app.route('/api/artwork/:id').get((req, res) => {
+    let artworkId = req.params.id;
+    mongoDb.connect(
+        'mongodb://localhost:27017',
+        { useNewUrlParser: true },
+        (err, client) => {
+            if (err) {
+                return console.dir(err);
+            }
+
+            let db = client.db(databaseName);
+            let collection = db.collection(artworksCollection);
+            collection.findOne({ assetRefNo: artworkId }, (err, items) => {
+                res.send(items);
+            });
+            client.close();
+        }
+    );
+});
+
 app.route('/api/images').get((req, res) => {
     mongoDb.connect(
         'mongodb://localhost:27017',
@@ -72,45 +92,6 @@ app.route('/api/images').get((req, res) => {
                     res.send(items);
                     client.close();
                 });
-        }
-    );
-});
-
-app.route('/api/last-update-date').get((req, res) => {
-    mongoDb.connect(
-        'mongodb://localhost:27017',
-        { useNewUrlParser: true },
-        (err, client) => {
-            if (err) {
-                return console.dir(err);
-            }
-            let db = client.db(databaseName);
-            var collection = db.collection(metaCollection);
-
-            collection.findOne({ key: 'last-update' }, (err, items) => {
-                res.send(items);
-            });
-            client.close();
-        }
-    );
-});
-
-app.route('/api/artwork/:id').get((req, res) => {
-    let artworkId = req.params.id;
-    mongoDb.connect(
-        'mongodb://localhost:27017',
-        { useNewUrlParser: true },
-        (err, client) => {
-            if (err) {
-                return console.dir(err);
-            }
-
-            let db = client.db(databaseName);
-            let collection = db.collection(artworksCollection);
-            collection.findOne({ assetRefNo: artworkId }, (err, items) => {
-                res.send(items);
-            });
-            client.close();
         }
     );
 });
@@ -294,6 +275,24 @@ app.route('/api/check-permission').get((req, res) => {
     );
 });
 
+app.route('/api/get-inspected-artworks').get((req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.setHeader('Content-Type', 'application/json');
+
+    let file = fs.readFileSync('../uploads/uploaded-artworks.json').toString();
+    let uploadedFileJson = JSON.parse(file);
+    let inspectedArtworks = [];
+
+    for (i = 0; i < uploadedFileJson.length; i++) {
+        if (uploadedFileJson[i].inspected) {
+            inspectedArtworks.push(uploadedFileJson[i]);
+        }
+    }
+    res.status(200);
+    return res.send(uploadedFileJson);
+});
+
 app.route('/api/download-backup').get((req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -457,7 +456,8 @@ app.route('/api/upload').post((req, res) => {
                                 return entity;
                             }
                         });
-                    };
+                    }
+                    ;
 
                     html.push(unescapeHTML(element));
                 });
@@ -526,6 +526,7 @@ app.route('/api/upload').post((req, res) => {
                             res.status(500);
                             return res.send();
                         }
+                        processData(artworksData);
 
                         let db = client.db(databaseName);
                         let artworkCol = db.collection(artworksCollection);
@@ -557,6 +558,97 @@ app.route('/api/upload').post((req, res) => {
 
     return req.pipe(busboy);
 });
+
+app.route('/api/inspect').get((req, res) => {
+
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.setHeader('Content-Type', 'application/json');
+    let artworkId = req.query.assetRefNo
+    let uploadPath = '../uploads/uploaded-artworks.json';
+
+    let artworks = fs.readFileSync(uploadPath).toString();
+    let artworksJson = JSON.parse(artworks);
+
+    for (let i = 0; i < artworksJson.length; i++) {
+        if (artworksJson[i].assetRefNo == artworkId) {
+            if (artworksJson[i].inspected) {
+                res.status(200).json(artworksJson[i]);
+            } else {
+                artworksJson[i].inspected = true;
+                fs.writeFile(uploadPath, JSON.stringify(artworksJson), function (err) {
+                    if (err) {
+                        res.status(400).send(err);
+                        return;
+                    } else {
+                        res.status(200).json(artworksJson[i]);
+                    }
+                });
+                break;
+            }
+        }
+    }
+});
+
+app.route('/api/last-update-date').get((req, res) => {
+    mongoDb.connect(
+        'mongodb://localhost:27017',
+        { useNewUrlParser: true },
+        (err, client) => {
+            if (err) {
+                return console.dir(err);
+            }
+            let db = client.db(databaseName);
+            var collection = db.collection(metaCollection);
+
+            collection.findOne({ key: 'last-update' }, (err, items) => {
+                res.send(items);
+            });
+            client.close();
+        }
+    );
+});
+
+app.route('/api/add-additional-artwork-data').post((req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    if (req.method === 'POST') {
+        let busboy = new Busboy({ headers: req.headers });
+
+        busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
+            var datetimestamp = Date.now();
+            var fileName = "image-" + datetimestamp + "." + filename.split('.')[filename.split('.').length - 1];
+			var saveTo = path.join('../uploads/', fileName);
+			file.pipe(fs.createWriteStream(saveTo));
+        });
+        busboy.on('finish', function () {
+			res.writeHead(200, {'Connection': 'close'});
+			res.end();
+		});
+		return req.pipe(busboy);
+    }
+    res.writeHead(404);
+    res.end();
+});
+
+// prosess data
+function processData(artworks) {
+    var promises = [];
+    for (var it = 0; it < artworks.length; it++) {
+        var artwork = artworks[it];
+        artwork.next = (artworks[it + 1]) ? artworks[it + 1].assetRefNo : null;
+        artwork.previous = (artworks[it - 1]) ? artworks[it - 1].assetRefNo : null;
+        promises.push(artwork)
+    }
+    return new Promise(function (resolve, reject) {
+        Promise.all(promises)
+            .then(data => {
+                resolve(data);
+            }).catch(err => {
+                reject(err);
+            })
+    })
+}
 
 function grabInfo(element, strToRemove) {
     let strippedP = stripTags(element, '<img>');

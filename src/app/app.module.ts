@@ -14,6 +14,7 @@ import { UserPermissionsComponent } from './pages/user-permissions/user-permissi
 import { UploadComponent } from './pages/upload/upload.component';
 import { CollectionComponent } from './pages/collection/collection.component';
 import { SortPipe } from './sort.pipe';
+import { InspectionsComponent } from './pages/inspections/inspections.component';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { SortPipe } from './sort.pipe';
         UserPermissionsComponent,
         UploadComponent,
         CollectionComponent,
-        SortPipe
+        SortPipe,
+        InspectionsComponent
     ],
     imports: [
         BrowserModule,

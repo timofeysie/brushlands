@@ -1,0 +1,5 @@
+[
+    {"assetRefNo":1,"title":"test1", "artist":"artist1","inspected":true},
+    {"assetRefNo":2,"title":"test2", "artist":"artist2","inspected":true},
+    {"assetRefNo":3,"title":"test3", "artist":"artist3","inspected":true}
+]

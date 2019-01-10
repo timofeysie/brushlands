@@ -11,6 +11,7 @@ import { UserPermissionsComponent } from './pages/user-permissions/user-permissi
 import { UploadComponent } from './pages/upload/upload.component';
 import { PermissionGuard } from './guards/permission/permission.guard';
 import { CollectionComponent } from './pages/collection/collection.component';
+import { InspectionsComponent } from './pages/inspections/inspections.component';
 
 const routes = [
     { path: 'login', component: LoginComponent },
@@ -27,6 +28,7 @@ const routes = [
     },
     { path: 'user-permissions', component: UserPermissionsComponent, canActivate: [AuthGuard] },
     { path: 'collection', component: CollectionComponent, canActivate: [AuthGuard] },
+    { path: 'inspections', component: InspectionsComponent, canActivate: [AuthGuard] },
     { path: '', redirectTo: '/artworks', pathMatch: 'full' }
 ];
 

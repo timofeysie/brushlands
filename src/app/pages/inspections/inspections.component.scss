@@ -1,0 +1,24 @@
+.artwork-list {
+    width: 70%;
+    border: 0.5px solid #d0d0d0;
+    border-radius: 15px;
+    padding: 50px;
+    background-color: #f0f0f0;
+    opacity: 0.9;
+    margin: 20px auto auto;
+    min-height: 200px;
+
+    .button-3d-action {
+        &:hover {
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+    }
+
+    .button-3d-highlight {
+        &:hover {
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+    }
+}

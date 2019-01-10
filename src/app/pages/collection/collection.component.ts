@@ -12,13 +12,10 @@ export class CollectionComponent implements OnInit {
     artworkList: any;
     sortReverse: boolean;
     sortType: any;
-    headElements: any;
 
     constructor(
         private apiService: ApiService
-    ) {
-        this.headElements = ['ID', 'First', 'Last', 'Handle'];
-    }
+    ) {}
 
     ngOnInit() {
         this.sortReverse = true;
