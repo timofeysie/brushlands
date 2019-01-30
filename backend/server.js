@@ -297,7 +297,9 @@ app.route('/api/download-backup').get((req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-    var fileName = '../../backend/artwork-backup.docx';
+    var tempFilePath = '../../dist/brushlands/assets/backups/';
+    var fileName = tempFilePath + 'artwork-backup.docx';
+
 
     mongoDb.connect(
         'mongodb://localhost:27017',
@@ -321,7 +323,7 @@ app.route('/api/download-backup').get((req, res) => {
                             var singleItem = item;
 
                             var type = image.imageFile.substring("data:image/".length, image.imageFile.indexOf(";base64"))
-                            var imagePath = path.resolve(__dirname + '/../src/assets/backups/images/image-' + item.assetRefNo + '.' + type);
+                            var imagePath = path.resolve(__dirname + tempFilePath + 'images/image-' + item.assetRefNo + '.' + type);
 
                             singleItem.imagePath = imagePath;
                             singleItem.imageFile = image.imageFile;
@@ -364,7 +366,7 @@ app.route('/api/download-backup').get((req, res) => {
                                     var file = fs.createWriteStream(path.resolve(__dirname + '/app/' + fileName));
                                     docxFile.generate(file);
                                     file.on('close', function () {
-                                        res.send({ data: fileName });
+                                        res.send({ data: '/assets/backups/artwork-backup.docx' });
                                     });
                                 }
                             });
@@ -373,22 +375,7 @@ app.route('/api/download-backup').get((req, res) => {
                 });
         }
     );
-});
 
-app.route('/api/save-from-db').post((req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
-    if (req['body']['fetched_data']) {
-        fs.writeFile("../uploads/firebase-backup.json", req['body']['fetched_data'], function (err) {
-            if (err) {
-                res.status(400).send(err);
-            } else {
-                res.status(200).send({});
-            }
-            return;
-        });
-    }
 });
 
 app.route('/api/upload').post((req, res) => {
@@ -590,6 +577,65 @@ app.route('/api/inspect').get((req, res) => {
     }
 });
 
+app.route('/api/save-from-db').post((req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+    if (req['body']['fetched_data']) {
+        fs.writeFile("../uploads/firebase-backup.json", req['body']['fetched_data'], function (err) {
+            if (err) {
+                res.status(400).send(err);
+            } else {
+                res.status(200).send({});
+            }
+            return;
+        });
+    }
+});
+
+app.route('/api/save-artist').post((req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.setHeader('Content-Type', 'application/json');
+
+    var data = req.body;
+    mongoDb.connect(
+        'mongodb://localhost:27017',
+        { useNewUrlParser: true },
+        (err, client) => {
+            if (err) {
+                return console.dir(err);
+            }
+            let db = client.db(databaseName);
+            var collection = db.collection(artistCollection);
+
+            collection.update({ name: data.name }, data, { upsert: true }, function (err, resuslt) {
+                res.send({ data: "sucess" });
+            });
+            db.close();
+        });
+});
+
+app.route('/api/save-image').post((req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.setHeader('Content-Type', 'application/json');
+
+    var data = req.body;
+    mongoDb.connect('mongodb://localhost:27017', { useNewUrlParser: true }, (err, client) => {
+        if (err) {
+            return console.dir(err);
+        }
+
+        let db = client.db(databaseName);
+        var collection = db.collection(artistCollection);
+        collection.update({ assetRefNo: data.assetRefNo }, data, { upsert: true }, function (err, resuslt) {
+            res.send({ data: "sucess" });
+        });
+        db.close();
+    });
+});
+
 app.route('/api/last-update-date').get((req, res) => {
     mongoDb.connect(
         'mongodb://localhost:27017',
@@ -609,26 +655,53 @@ app.route('/api/last-update-date').get((req, res) => {
     );
 });
 
-app.route('/api/add-additional-artwork-data').post((req, res) => {
+app.route('/api/save-image').post((req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    if (req.method === 'POST') {
-        let busboy = new Busboy({ headers: req.headers });
+    res.setHeader('Content-Type', 'application/json');
 
-        busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
-            var datetimestamp = Date.now();
-            var fileName = "image-" + datetimestamp + "." + filename.split('.')[filename.split('.').length - 1];
-			var saveTo = path.join('../uploads/', fileName);
-			file.pipe(fs.createWriteStream(saveTo));
+    var data = req.body;
+    mongoDb.connect('mongodb://localhost:27017', { useNewUrlParser: true }, (err, client) => {
+        if (err) {
+            return console.dir(err);
+        }
+
+        let db = client.db(databaseName);
+        var collection = db.collection(artistCollection);
+        collection.update({ assetRefNo: data.assetRefNo }, data, { upsert: true }, function (err, resuslt) {
+            res.send({ data: "sucess" });
         });
-        busboy.on('finish', function () {
-			res.writeHead(200, {'Connection': 'close'});
-			res.end();
-		});
-		return req.pipe(busboy);
-    }
-    res.writeHead(404);
-    res.end();
+        db.close();
+    });
+});
+
+app.route('/api/update-artist').post((req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.setHeader('Content-Type', 'application/json');
+
+    var data = req.body;
+    mongoDb.connect('mongodb://localhost:27017', { useNewUrlParser: true }, (err, client) => {
+        if (err) {
+            return console.dir(err);
+        }
+        let db = client.db(databaseName);
+        var collection = db.collection(artistCollection);
+
+        collection.update({ name: data.artist }, { $set: { bio: data.bio } }, function (err, items) {
+            res.send({ data: "sucess" });
+        });
+        db.close();
+    });
+});
+
+app.route('/api/auth-roles').get((req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.setHeader('Content-Type', 'application/json');
+    var file = fs.readFileSync('.permissions.json').toString();
+    var rolesFileJson = JSON.parse(file);
+    res.send(rolesFileJson);
 });
 
 // prosess data

@@ -92,7 +92,6 @@ export class UploadComponent implements OnInit {
             this.apiService.saveFromDb(options).subscribe((response) => {
                 this.showBackupProcessing = false;
                 this.isBackupSuccess = true;
-                console.log(response);
             });
         });
     }
@@ -100,14 +99,29 @@ export class UploadComponent implements OnInit {
     downloadBackup() {
         this.fileGenerating = true;
         this.apiService.downloadBackup().subscribe((response) => {
-            const date = new Date();
-            let fDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + '-' + date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds();
-            var fileName = 'artwork-backup-' + fDate + '.docx';
-            var downloadLink = document.createElement('a');
-            downloadLink.setAttribute('href', response.data);
-            downloadLink.setAttribute('download', fileName);
-            downloadLink.click();
-            this.fileGenerating = false;
+            function doesFileExist(urlToFile) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('HEAD', urlToFile, false);
+                xhr.send();
+
+                if (xhr.status == 404) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            var fileCheck = doesFileExist(response.data);
+
+            if (fileCheck == true) {
+                this.fileGenerating = false;
+                const date = new Date();
+                let fDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + '-' + date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds();
+                var fileName = 'artwork-backup-' + fDate + '.docx';
+                var downloadLink = document.createElement('a');
+                downloadLink.setAttribute('href', response.data);
+                downloadLink.setAttribute('download', fileName);
+                downloadLink.click();
+            }
         });
     }
 }

@@ -26,11 +26,9 @@ export class UserPermissionsComponent implements OnInit {
         this.showPermissions = false;
         this.apiService.getPermission().subscribe((response: any[]) => {
             this.permissions = response;
-            console.log(this.permissions);
         });
 
         this.permissionForm.get('user').valueChanges.subscribe(value => {
-            console.log(value);
             this.showPermissions = true;
             this.permissionForm.patchValue({
                 manageUserPermissions: this.inArray(value.permissions, 'manage-user-permissions'),

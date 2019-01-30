@@ -191,7 +191,7 @@ export class ApiService {
         );
     }
 
-    public inspect(): Observable<any>{
+    public inspect(): Observable<any> {
         return this.http.get(this.getApiUrl('inspect'), { reportProgress: true, responseType: 'text' }).pipe(
             map((response: any) => {
                 return response;
@@ -200,7 +200,7 @@ export class ApiService {
     }
 
     public additionalArtwordData(data): Observable<any> {
-        return this.http.post(this.getApiUrl('add-additional-artwork-data'), data, { reportProgress: true}).pipe(
+        return this.http.post(this.getApiUrl('add-additional-artwork-data'), data, { reportProgress: true }).pipe(
             map((response: any) => {
                 return response;
             })

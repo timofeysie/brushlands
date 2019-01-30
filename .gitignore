@@ -4,6 +4,9 @@
 /dist
 /tmp
 /out-tsc
+/src/assets/backup/images
+/src/environments/environment.ts
+/backup_files
 
 # dependencies
 /node_modules
