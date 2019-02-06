@@ -50,6 +50,88 @@ ArtworksComponent should show update button if no artworks
 [object ErrorEvent] thrown
 ```
 
+## Setup
+
+The minimum node version is 8+.  Currently using node v10.14.2 (npm v6.4.1).
+```
+$ npm i
+...
+npm WARN angular2-jwt@0.2.3 requires a peer of @angular/core@^2.0.0||^4.0.0 but none was installed.
+npm WARN angular2-jwt@0.2.3 requires a peer of @angular/http@^2.0.0||^4.0.0 but none was installed.
+npm WARN angular2-jwt@0.2.3 requires a peer of rxjs@^5.0.0 but none was installed.
+```
+
+In a second terminal: ```node backend/server.js```
+
+```
+npm start
+...
+chunk {vendor} vendor.js, vendor.js.map (vendor) 5.93 MB [initial] [rendered]
+ERROR in ./src/app/pages/artist/artist.component.scss
+Module build failed: Error: Missing binding /Users/tim/repos/brushlands/node_modules/node-sass/vendor/darwin-x64-64/binding.node
+Node Sass could not find a binding for your current environment: OS X 64-bit with Node.js 10.x
+Found bindings for the following environments:
+  - OS X 64-bit with Node.js 6.x
+This usually happens because your environment has changed since running `npm install`.
+Run `npm rebuild node-sass` to download the binding for your current environment.
+    at module.exports (/Users/tim/repos/brushlands/node_modules/node-sass/lib/binding.js:15:13)
+...
+This usually happens because your environment has changed since running `npm install`.
+Run `npm rebuild node-sass` to download the binding for your current environment.
+｢wdm｣: Failed to compile.
+```
+
+```
+npm rebuild node-sass
+...
+npm start
+...
+ ｢wdm｣: Compiled successfully.
+```
+
+In the browser at http://localhost:4200/, a blank screen and the following console error:
+```
+vendor.js:1 Failed to load resource: net::ERR_CONTENT_LENGTH_MISMATCH
+```
+
+Eventually going to http://localhost:4200/login works.
+
+Going to the home page with no artists causes the following error in the console and an infinite spinner:
+```
+(unknown) Uncaught DOMException: Blocked a frame with origin "https://hakea.auth0.com" from accessing a cross-origin frame.
+    at <anonymous>:1:16
+(anonymous) @ VM18:1
+zone.js:2969 GET http://localhost:3000/api/check-permission?user=Timothy%20Curchod&permission=upload-and-backup-artworks 500 (Internal Server Error)
+scheduleTask @ zone.js:2969
+push../node_modules/zone.js/dist/zone.js.ZoneDelegate.scheduleTask @ zone.js:407
+onScheduleTask @ zone.js:297
+...
+```
+
+In the server console we see this:
+```
+server started
+{ MongoNetworkError: failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]
+    at Pool.<anonymous> (/Users/tim/repos/brushlands/node_modules/mongodb-core/lib/topologies/server.js:564:11)
+    at emitOne (events.js:96:13)
+...
+  name: 'MongoNetworkError',
+  errorLabels: [ 'TransientTransactionError' ] }
+{ MongoNetworkError: failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]
+    at Pool.<anonymous> (/Users/tim/repos/brushlands/node_modules/mongodb-core/lib/topologies/server.js:564:11)
+    at emitOne (events.js:96:13)
+... 
+```    
+
+The tests are in pretty good shape: ```32 specs, 7 failures```.
+The usual error comes up first.
+```
+PermissionGuard should ...
+Error: StaticInjectorError(DynamicTestModule)[HttpClient]: 
+  StaticInjectorError(Platform: core)[HttpClient]: 
+    NullInjectorError: No provider for HttpClient!
+```
+
 
 #
 
